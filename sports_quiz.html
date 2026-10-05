@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Quiz 🏆</title>
+  <meta name="description" content="Interactive Sports Quiz featuring Team Rounds, MCQs, Rapid Fire, and Sports Legends" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal-1: #0FBFB0;
+      --teal-2: #14D6C4;
+      --teal-dark: #0c8f84;
+      --card-bg: rgba(255, 255, 255, 0.97);
+      --text-dark: #1a2a35;
+      --text-mid: #3a5a68;
+      --text-light: #718d9b;
+      --red-1: #FF6B8A;
+      --red-2: #FF2D55;
+      --green-1: #10B981;
+      --green-2: #059669;
+      --gold-1: #F59E0B;
+      --purple-1: #8B5CF6;
+      --shadow-card: 0 24px 60px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.12);
+      --shadow-btn: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Fredoka', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--teal-1) 0%, var(--teal-2) 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 24px 16px;
+      position: relative;
+    }
+
+    /* ── Floating Sparkles ── */
+    .sparkle-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .sparkle {
+      position: absolute;
+      opacity: 0;
+      animation: floatSpark linear infinite;
+      color: rgba(255, 255, 255, 0.75);
+      user-select: none;
+      pointer-events: none;
+    }
+    @keyframes floatSpark {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── App Container ── */
+    .app-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* ── Typography & Headers ── */
+    .main-title {
+      font-size: clamp(2.2rem, 7vw, 3.4rem);
+      font-weight: 700;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 3px 14px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15);
+      line-height: 1.15;
+    }
+    .main-subtitle {
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      font-weight: 500;
+      margin-top: -6px;
+    }
+
+    /* ── Views Common ── */
+    .view-section {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .view-section.active {
+      display: flex;
+    }
+
+    /* ── Progress Bar ── */
+    .progress-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4px;
+    }
+    .progress-label {
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .progress-home-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1.5px solid rgba(255,255,255,0.45);
+      color: #fff;
+      padding: 4px 14px;
+      border-radius: 99px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .progress-home-btn:hover {
+      background: rgba(255,255,255,0.35);
+      transform: translateY(-1px);
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.28);
+      border-radius: 99px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #fff 0%, #d8fffb 100%);
+      border-radius: 99px;
+      transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+    }
+
+    /* ── Card Styles & Animations ── */
+    .card-wrapper {
+      width: 100%;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 34px 30px 30px;
+      box-shadow: var(--shadow-card);
+      border: 2.5px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      position: relative;
+      overflow: hidden;
+      animation: bounceIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .card.slide-out-left {
+      animation: slideOutLeft 0.32s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    }
+    .card.slide-out-right {
+      animation: slideOutRight 0.32s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    }
+    .card.slide-in-left {
+      animation: slideInLeft 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes bounceIn {
+      0%   { opacity: 0; transform: scale(0.85) translateY(28px); }
+      60%  { opacity: 1; transform: scale(1.025) translateY(-4px); }
+      80%  { transform: scale(0.985) translateY(2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes slideOutLeft {
+      0%   { opacity: 1; transform: translateX(0) scale(1); }
+      100% { opacity: 0; transform: translateX(-80px) scale(0.92); }
+    }
+    @keyframes slideOutRight {
+      0%   { opacity: 1; transform: translateX(0) scale(1); }
+      100% { opacity: 0; transform: translateX(80px) scale(0.92); }
+    }
+    @keyframes slideInLeft {
+      0%   { opacity: 0; transform: translateX(70px) scale(0.92); }
+      60%  { opacity: 1; transform: translateX(-4px) scale(1.02); }
+      80%  { transform: translateX(2px) scale(0.99); }
+      100% { opacity: 1; transform: translateX(0) scale(1); }
+    }
+
+    /* ── Round Badge ── */
+    .round-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 18px;
+      border-radius: 99px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #e0f9f6, #c5f4ee);
+      color: #0d8379;
+      border: 1.5px solid #a4e9e0;
+      box-shadow: 0 2px 8px rgba(15, 191, 176, 0.15);
+    }
+    .round-chip.team-a { background: #ffe4e6; color: #e11d48; border-color: #fecdd3; }
+    .round-chip.team-b { background: #e0e7ff; color: #4338ca; border-color: #c7d2fe; }
+    .round-chip.team-c { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+    .round-chip.rapid  { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
+    .round-chip.whois  { background: #ede9fe; color: #6d28d9; border-color: #ddd6fe; }
+
+    /* ── Question Text ── */
+    .question-title {
+      font-size: clamp(1.35rem, 3.8vw, 1.85rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.35;
+      padding: 0 8px;
+    }
+
+    /* ── Options Grid ── */
+    .options-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 4px 0;
+    }
+    @media (min-width: 600px) {
+      .options-container.has-four {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: #f4f8fa;
+      border: 2px solid #e1ebf0;
+      color: var(--text-dark);
+      font-size: 1.08rem;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .option-letter {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: #e2edf2;
+      color: var(--text-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .option-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    /* Revealed state for options */
+    .option-item.correct {
+      background: #ecfdf5 !important;
+      border-color: #10b981 !important;
+      color: #065f46 !important;
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
+    }
+    .option-item.correct .option-letter {
+      background: #10b981 !important;
+      color: #fff !important;
+    }
+    .option-item.faded {
+      opacity: 0.38;
+      transform: scale(0.98);
+      filter: grayscale(40%);
+    }
+
+    .open-round-box {
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 2px dashed #cbd5e1;
+      text-align: center;
+      color: var(--text-mid);
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* ── Answer Reveal Area ── */
+    .answer-container {
+      width: 100%;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .answer-hidden-hint {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(26, 42, 53, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f6f8;
+      padding: 10px 22px;
+      border-radius: 99px;
+    }
+
+    .answer-revealed-box {
+      width: 100%;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #f0fdf9 0%, #e6faf5 100%);
+      border: 2px solid #86efac;
+      animation: popAnswer 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    }
+    .answer-revealed-box.visible {
+      display: flex;
+    }
+
+    @keyframes popAnswer {
+      0%   { opacity: 0; transform: scale(0.85) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .answer-badge-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #059669;
+      background: #d1fae5;
+      padding: 4px 14px;
+      border-radius: 99px;
+    }
+
+    .answer-content-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Answer Image / Glowing Avatar Circle */
+    .answer-image-circle {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(16, 185, 129, 0.45), 0 4px 12px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+      overflow: hidden;
+      animation: answerPulse 2s infinite alternate ease-in-out;
+      font-size: 2.5rem;
+      line-height: 1;
+    }
+    @keyframes answerPulse {
+      0%   { transform: scale(1); box-shadow: 0 0 16px rgba(16, 185, 129, 0.35); }
+      100% { transform: scale(1.06); box-shadow: 0 0 28px rgba(16, 185, 129, 0.65); }
+    }
+    .answer-img-tag {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .answer-main-text {
+      font-size: clamp(1.6rem, 5.2vw, 2.25rem);
+      font-weight: 700;
+      color: #064e3b;
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    /* ── Action Buttons ── */
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .action-btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 99px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.4px;
+      padding: 13px 30px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.2s ease, background 0.25s ease;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .action-btn:active { transform: scale(0.95) !important; }
+    .action-btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .btn-prev {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--text-dark);
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      backdrop-filter: blur(4px);
+    }
+    .btn-prev:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    .btn-prev:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-reveal {
+      background: linear-gradient(135deg, var(--red-1), var(--red-2));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(255, 45, 85, 0.4);
+    }
+    .btn-reveal:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(255, 45, 85, 0.52);
+    }
+
+    .btn-next {
+      background: linear-gradient(135deg, var(--teal-1), var(--teal-2));
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(15, 191, 176, 0.4);
+    }
+    .btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(15, 191, 176, 0.52);
+    }
+
+    .btn-primary-large {
+      background: linear-gradient(135deg, #FF6B8A, #FF2D55);
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      padding: 16px 42px;
+      box-shadow: 0 8px 28px rgba(255, 45, 85, 0.45);
+    }
+    .btn-primary-large:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 34px rgba(255, 45, 85, 0.55);
+    }
+
+    .btn-secondary-large {
+      background: rgba(255,255,255,0.92);
+      color: var(--teal-dark);
+      font-size: 1.18rem;
+      font-weight: 700;
+      padding: 15px 36px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      border: 2px solid rgba(255,255,255,0.95);
+    }
+    .btn-secondary-large:hover {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+    }
+
+    .btn-divider {
+      font-size: 0.84rem;
+      color: rgba(26,42,53,0.32);
+      font-weight: 500;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── Confetti Container ── */
+    .confetti-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 28px;
+      z-index: 10;
+    }
+    .confetti-piece {
+      position: absolute;
+      border-radius: 2px;
+      opacity: 0;
+      animation: confettiFall 1.1s ease forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translate(0,0) rotate(0deg) scale(1); }
+      80%  { opacity: 0.7; }
+      100% { opacity: 0; transform: translate(var(--tx),var(--ty)) rotate(var(--rot)) scale(0.35); }
+    }
+
+    /* ── Keyboard Hints ── */
+    .key-hints {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.9rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    }
+    .key-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 7px;
+      padding: 2px 9px;
+      font-size: 0.82rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── Home Screen ── */
+    .home-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 44px 32px;
+      box-shadow: var(--shadow-card);
+      border: 2.5px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      text-align: center;
+      width: 100%;
+      animation: bounceIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .home-hero-icon {
+      font-size: 4.5rem;
+      line-height: 1;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15));
+      animation: gentleBounce 2.5s infinite ease-in-out;
+    }
+    @keyframes gentleBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-8px) scale(1.04); }
+    }
+    .home-stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      max-width: 580px;
+    }
+    .home-stat-pill {
+      background: #f1f8fa;
+      border: 1.5px solid #d4e8ee;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-mid);
+    }
+    .home-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    /* ── Edit Mode ── */
+    .edit-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .edit-header-card {
+      background: var(--card-bg);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      border: 2px solid rgba(255,255,255,0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .edit-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .edit-btn {
+      padding: 10px 18px;
+      border-radius: 99px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .edit-btn-primary {
+      background: linear-gradient(135deg, var(--teal-1), var(--teal-2));
+      color: #fff;
+    }
+    .edit-btn-secondary {
+      background: #f1f5f9;
+      color: var(--text-dark);
+      border: 1px solid #cbd5e1;
+    }
+    .edit-btn-danger {
+      background: #ffe4e6;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+    }
+    .edit-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+    .edit-q-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 22px 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border: 2px solid rgba(255,255,255,0.85);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+    }
+    .edit-q-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #edf2f7;
+      padding-bottom: 10px;
+    }
+    .edit-q-badge {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--teal-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 580px) {
+      .form-row { grid-template-columns: 1fr 1fr; }
+    }
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1.5px solid #d6e2e8;
+      font-family: inherit;
+      font-size: 0.98rem;
+      color: var(--text-dark);
+      background: #fdfefe;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--teal-1);
+      box-shadow: 0 0 0 3px rgba(20, 214, 196, 0.2);
+    }
+    .form-textarea {
+      min-height: 85px;
+      resize: vertical;
+      line-height: 1.4;
+    }
+    .form-hint {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* ── End Screen ── */
+    .end-screen {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 50px 32px 42px;
+      box-shadow: var(--shadow-card);
+      border: 2.5px solid rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      width: 100%;
+      animation: bounceIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .end-emoji {
+      font-size: 4.5rem;
+      animation: spinPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes spinPop {
+      0%   { opacity: 0; transform: rotate(-50deg) scale(0.4); }
+      100% { opacity: 1; transform: rotate(0deg) scale(1); }
+    }
+    .end-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .end-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-mid);
+      font-weight: 500;
+      max-width: 480px;
+      line-height: 1.4;
+    }
+
+    /* ── Toast Notification ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      background: #1e293b;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 99px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 99999;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive adjustments ── */
+    @media (max-width: 600px) {
+      body { padding: 16px 10px; }
+      .card { padding: 26px 18px 22px; gap: 18px; border-radius: 22px; }
+      .home-card { padding: 32px 18px; }
+      .action-btn { padding: 12px 22px; font-size: 0.98rem; }
+      .answer-main-text { font-size: 1.6rem; }
+      .answer-image-circle { width: 64px; height: 64px; font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sparkle-layer" id="sparkleLayer" aria-hidden="true"></div>
+
+<div class="app-container">
+
+  <!-- ========================================== -->
+  <!-- 1. HOME SCREEN                             -->
+  <!-- ========================================== -->
+  <section class="view-section active" id="homeView">
+    <div style="text-align:center;">
+      <h1 class="main-title">🏆 Sports Quiz</h1>
+      <p class="main-subtitle">Team Rounds • MCQs • Rapid Fire • Sports Legends</p>
+    </div>
+
+    <div class="home-card">
+      <div class="home-hero-icon">🥇</div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <h2 style="font-size:1.8rem; font-weight:700; color:var(--text-dark);">General Sports Knowledge</h2>
+        <p style="color:var(--text-mid); font-size:1.05rem; max-width:440px;">
+          Test your sports prowess with interactive question cards, instant reveals, and celebratory confetti!
+        </p>
+      </div>
+
+      <div class="home-stats-grid" id="homeStats">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="home-btn-group">
+        <button class="action-btn btn-primary-large" id="homeStartBtn">
+          🚀 Start Quiz
+        </button>
+        <button class="action-btn btn-secondary-large" id="homeEditBtn">
+          ✏️ Edit Questions
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 2. QUIZ / START MODE                       -->
+  <!-- ========================================== -->
+  <section class="view-section" id="quizView">
+    <div style="text-align:center; width:100%;">
+      <h1 class="main-title" style="font-size:clamp(1.8rem, 5vw, 2.5rem);">🏆 Sports Quiz</h1>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <div class="progress-label" id="progressLabel">Question 1 of 31</div>
+        <button class="progress-home-btn" id="quizHomeBtn" title="Return to Home (Esc)">🏠 Home</button>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- Question Card Holder -->
+    <div class="card-wrapper" id="cardWrapper"></div>
+
+    <!-- Keyboard Navigation Hints -->
+    <div class="key-hints" id="keyHints">
+      <span><span class="key-badge">←</span> Prev</span>
+      <span><span class="key-badge">SPACE</span> / <span class="key-badge">→</span> Reveal / Next</span>
+      <span><span class="key-badge">ESC</span> Home</span>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 3. EDIT MODE                               -->
+  <!-- ========================================== -->
+  <section class="view-section" id="editView">
+    <div style="text-align:center; width:100%;">
+      <h1 class="main-title" style="font-size:clamp(1.8rem, 5vw, 2.5rem);">✏️ Edit Questions</h1>
+      <p class="main-subtitle">Add, customize, or reset quiz questions</p>
+    </div>
+
+    <div class="edit-container">
+      <div class="edit-header-card">
+        <div class="edit-toolbar">
+          <div style="font-weight:700; color:var(--text-dark); font-size:1.1rem;" id="editCountLabel">
+            31 Questions in Quiz
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="edit-btn edit-btn-primary" id="addQuestionBtn">➕ Add Question</button>
+            <button class="edit-btn edit-btn-secondary" id="exportBtn">📋 Copy JSON</button>
+            <button class="edit-btn edit-btn-danger" id="resetDefaultsBtn">🔄 Reset PDF Defaults</button>
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; border-top:1px solid #edf2f7; pt:12px; padding-top:12px;">
+          <button class="edit-btn edit-btn-secondary" id="editBackHomeBtn">🏠 Back to Home</button>
+          <button class="edit-btn edit-btn-primary" id="editSaveStartBtn" style="padding:10px 24px; font-weight:700;">
+            💾 Save & Start Quiz
+          </button>
+        </div>
+      </div>
+
+      <!-- Questions List -->
+      <div class="questions-list" id="editQuestionsList"></div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- 4. RESULTS / END SCREEN                    -->
+  <!-- ========================================== -->
+  <section class="view-section" id="endView">
+    <div class="end-screen">
+      <div class="end-emoji">🏆</div>
+      <div class="end-title">Quiz Complete!</div>
+      <div class="end-subtitle" id="endSubtitle">
+        Great game! You went through all questions across all rounds.
+      </div>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="action-btn btn-primary-large" id="playAgainBtn">
+          🔄 Play Again
+        </button>
+        <button class="action-btn btn-secondary-large" id="endHomeBtn">
+          🏠 Home
+        </button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Toast notification element -->
+<div class="toast" id="toast">Changes saved successfully!</div>
+
+<script>
+// ==========================================================================
+//  DATA STRUCTURE & DEFAULT PDF QUESTIONS
+//  Each object: { round, question, options[], answer, image }
+//  - "options" is an array of strings (empty [] for open questions)
+//  - "image" can be an emoji (e.g. '🏃‍♀️') or an image path (e.g. 'images/1.png')
+// ==========================================================================
+const DEFAULT_QUESTIONS = [
+  // ── Team A / B / C Rounds ──────────────────────────────────
+  {
+    round: "TEAM - A",
+    question: "What is the name of the autobiography of P.T. Usha?",
+    options: ["Playing to Win", "Unbreakable", "Golden Girl", "Ace Against Odds"],
+    answer: "Golden Girl",
+    image: "🏃‍♀️"
+  },
+  {
+    round: "TEAM - B",
+    question: "In which sport has India won 8 gold medals in the Olympic Games?",
+    options: ["Wrestling", "Shooting", "Weightlifting", "Field Hockey"],
+    answer: "Field Hockey",
+    image: "🏑"
+  },
+  {
+    round: "TEAM - C",
+    question: "The National sport of Sri Lanka is –",
+    options: ["Baseball", "Volleyball", "Cricket", "Badminton"],
+    answer: "Volleyball",
+    image: "🏐"
+  },
+
+  // ── MCQ Round (Renumbered continuously) ───────────────────
+  {
+    round: "MCQ Round",
+    question: "Which country is known as “the home of cricket”?",
+    options: ["England", "Australia", "West Indies", "South Africa"],
+    answer: "England",
+    image: "🏏"
+  },
+  {
+    round: "MCQ Round",
+    question: "The playground of baseball is known as –",
+    options: ["Court", "Pitch", "Ring", "Diamond"],
+    answer: "Diamond",
+    image: "⚾"
+  },
+  {
+    round: "MCQ Round",
+    question: "What does BWF stand for?",
+    options: [
+      "Badminton World Federation",
+      "Badminton World Foundation",
+      "Badminton World Friendship",
+      "None of the above"
+    ],
+    answer: "Badminton World Federation",
+    image: "🏸"
+  },
+  {
+    round: "MCQ Round",
+    question: "The term ‘double fault’ is associated with which sport?",
+    options: ["Chess", "Rugby", "Tennis", "Basketball"],
+    answer: "Tennis",
+    image: "🎾"
+  },
+  {
+    round: "MCQ Round",
+    question: "Which football player is known as ‘Black Pearl’?",
+    options: ["Pelé", "Bolt", "Roosevelt", "Tendulkar"],
+    answer: "Pelé",
+    image: "⚽"
+  },
+  {
+    round: "MCQ Round",
+    question: "Which national cricket team is called by ‘Kangaroos’?",
+    options: [
+      "Indian Cricket Team",
+      "Sri Lanka Cricket Team",
+      "Australian Cricket Team",
+      "South African Cricket Team"
+    ],
+    answer: "Australian Cricket Team",
+    image: "🦘"
+  },
+  {
+    round: "MCQ Round",
+    question: "‘Playing It My Way’ is the autobiography of –",
+    options: ["Sachin Tendulkar", "Usain Bolt", "P.T. Usha", "Muhammad Ali"],
+    answer: "Sachin Tendulkar",
+    image: "🏏"
+  },
+  {
+    round: "MCQ Round",
+    question: "Which is the largest cricket stadium in the world?",
+    options: [
+      "Eden Gardens",
+      "Motera Stadium",
+      "Lord’s Cricket Ground",
+      "Melbourne Cricket Ground"
+    ],
+    answer: "Motera Stadium",
+    image: "🏟️"
+  },
+  {
+    round: "MCQ Round",
+    question: "Which country won the first Blind Women’s T20 World Cup?",
+    options: ["Australia", "Sri Lanka", "Nepal", "India"],
+    answer: "India",
+    image: "🏆"
+  },
+  {
+    round: "MCQ Round",
+    question: "Penholder grip is used in which of the following sports?",
+    options: ["Cricket", "Hockey", "Table Tennis", "Badminton"],
+    answer: "Table Tennis",
+    image: "🏓"
+  },
+  {
+    round: "MCQ Round",
+    question: "Which country has hosted the Olympics the most times?",
+    options: ["Germany", "England", "USA", "France"],
+    answer: "USA",
+    image: "🥇"
+  },
+  {
+    round: "MCQ Round",
+    question: "How many countries participated in the first modern Olympics?",
+    options: ["12", "15", "14", "21"],
+    answer: "14",
+    image: "🏛️"
+  },
+  {
+    round: "MCQ Round",
+    question: "What is the official national sport of China?",
+    options: ["Hockey", "Badminton", "Cricket", "Table Tennis"],
+    answer: "Table Tennis",
+    image: "🏓"
+  },
+
+  // ── Rapid Fire Round (Open Questions) ─────────────────────
+  {
+    round: "Rapid Fire",
+    question: "The term “Dolphin Kick” is related to which game?",
+    options: [],
+    answer: "Swimming",
+    image: "🏊‍♂️"
+  },
+  {
+    round: "Rapid Fire",
+    question: "“Durand Cup” is associated with which game?",
+    options: [],
+    answer: "Football",
+    image: "⚽"
+  },
+  {
+    round: "Rapid Fire",
+    question: "“Triples” is a new format of which game?",
+    options: [],
+    answer: "Badminton",
+    image: "🏸"
+  },
+  {
+    round: "Rapid Fire",
+    question: "The term “Googly” is associated with which game?",
+    options: [],
+    answer: "Cricket",
+    image: "🏏"
+  },
+  {
+    round: "Rapid Fire",
+    question: "“The World Beneath His Feet” is a biography of which player?",
+    options: [],
+    answer: "Pullela Gopichand",
+    image: "🏸"
+  },
+  {
+    round: "Rapid Fire",
+    question: "“281 And Beyond” is the autobiography of which player?",
+    options: [],
+    answer: "VVS Laxman",
+    image: "🏏"
+  },
+  {
+    round: "Rapid Fire",
+    question: "“Straight From The Heart” is an autobiography of which player?",
+    options: [],
+    answer: "Kapil Dev",
+    image: "🏏"
+  },
+  {
+    round: "Rapid Fire",
+    question: "“Ezra Cup” is related to which game?",
+    options: [],
+    answer: "Polo",
+    image: "🐎"
+  },
+
+  // ── "Who is known as..." Round (Open Questions) ───────────
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘God of Cricket’?",
+    options: [],
+    answer: "Sachin Tendulkar",
+    image: "👑"
+  },
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘Run Machine’?",
+    options: [],
+    answer: "Virat Kohli",
+    image: "⚡"
+  },
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘Captain Cool’?",
+    options: [],
+    answer: "M.S. Dhoni",
+    image: "🧤"
+  },
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘Hitman’?",
+    options: [],
+    answer: "Rohit Sharma",
+    image: "💥"
+  },
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘The Wall’?",
+    options: [],
+    answer: "Rahul Dravid",
+    image: "🧱"
+  },
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘Little Master’?",
+    options: [],
+    answer: "Sunil Gavaskar",
+    image: "🏏"
+  },
+  {
+    round: "Who is known as...",
+    question: "Who is known as ‘Miyan Bhai’?",
+    options: [],
+    answer: "Mohammed Siraj",
+    image: "🎯"
+  }
+];
+
+const STORAGE_KEY = 'sports_quiz_custom_data';
+const CONF_COLORS = ['#FF4E6A', '#FFD700', '#14D6C4', '#A78BFA', '#FB923C', '#34D399', '#38BDF8'];
+
+// Working state
+let questions = loadQuestions();
+let currentIndex = 0;
+let isRevealed = false;
+let isAnimating = false;
+let currentView = 'home'; // 'home' | 'quiz' | 'edit' | 'end'
+
+// ── Persistence Helpers ─────────────────────────────────────
+function loadQuestions() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not load stored questions from localStorage:', e);
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
+}
+
+function saveQuestions(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    showToast('Saved to localStorage successfully!');
+  } catch (e) {
+    console.warn('Could not save to localStorage:', e);
+    showToast('Notice: Edits kept in memory (localStorage unavailable).');
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+// ── View Switching ──────────────────────────────────────────
+function switchView(viewName) {
+  currentView = viewName;
+  document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+
+  if (viewName === 'home') {
+    renderHomeStats();
+    document.getElementById('homeView').classList.add('active');
+  } else if (viewName === 'quiz') {
+    document.getElementById('quizView').classList.add('active');
+    renderQuestion(currentIndex, 'next');
+  } else if (viewName === 'edit') {
+    document.getElementById('editView').classList.add('active');
+    renderEditList();
+  } else if (viewName === 'end') {
+    document.getElementById('endView').classList.add('active');
+    triggerBigConfetti();
+  }
+}
+
+// ── Home View ───────────────────────────────────────────────
+function renderHomeStats() {
+  const statsWrap = document.getElementById('homeStats');
+  if (!statsWrap) return;
+
+  const total = questions.length;
+  const rounds = {};
+  questions.forEach(q => {
+    rounds[q.round] = (rounds[q.round] || 0) + 1;
+  });
+
+  let html = `<div class="home-stat-pill" style="background:#e0f2fe; color:#0369a1; font-weight:700;">📊 ${total} Total Questions</div>`;
+  for (const [round, count] of Object.entries(rounds)) {
+    html += `<div class="home-stat-pill">✨ ${escapeHtml(round)}: <strong>${count}</strong></div>`;
+  }
+  statsWrap.innerHTML = html;
+}
+
+// ── Floating Sparkles Background ────────────────────────────
+(function initSparkles() {
+  const layer = document.getElementById('sparkleLayer');
+  if (!layer) return;
+  const chars = ['✦', '✧', '★', '⋆', '✷', '✵', '⚽', '🏏', '🏆'];
+  for (let i = 0; i < 34; i++) {
+    const el = document.createElement('div');
+    el.className = 'sparkle';
+    el.textContent = chars[i % chars.length];
+    const sz = 10 + Math.random() * 14;
+    el.style.cssText = [
+      'left:' + (Math.random() * 100) + '%',
+      'bottom:-28px',
+      'font-size:' + sz + 'px',
+      'animation-duration:' + (7 + Math.random() * 12) + 's',
+      'animation-delay:-' + (Math.random() * 15) + 's'
+    ].join(';');
+    layer.appendChild(el);
+  }
+})();
+
+// ── Confetti Effects ────────────────────────────────────────
+function spawnCardConfetti() {
+  const c = document.getElementById('confettiCont');
+  if (!c) return;
+  c.innerHTML = '';
+  const cx = c.offsetWidth / 2, cy = c.offsetHeight / 2;
+  for (let i = 0; i < 50; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    const ang = (i / 50) * 360 + (Math.random() * 15 - 7.5);
+    const dist = 70 + Math.random() * 180;
+    const rad = ang * Math.PI / 180;
+    const tx = Math.cos(rad) * dist;
+    const ty = Math.sin(rad) * dist - 30;
+    const rot = Math.random() * 720 - 360;
+    const w = 6 + Math.random() * 8;
+    p.style.cssText = [
+      'left:' + cx + 'px', 'top:' + cy + 'px',
+      'background:' + CONF_COLORS[i % CONF_COLORS.length],
+      '--tx:' + tx + 'px', '--ty:' + ty + 'px', '--rot:' + rot + 'deg',
+      'width:' + w + 'px', 'height:' + w + 'px',
+      'border-radius:' + (Math.random() > 0.5 ? '50%' : '2px'),
+      'animation-delay:' + (Math.random() * 0.08) + 's'
+    ].join(';');
+    c.appendChild(p);
+  }
+}
+
+function triggerBigConfetti() {
+  const all = [...CONF_COLORS, '#ffffff'];
+  for (let i = 0; i < 95; i++) {
+    const p = document.createElement('div');
+    const w = 8 + Math.random() * 9;
+    p.style.cssText = [
+      'position:fixed',
+      'left:' + (Math.random() * window.innerWidth) + 'px',
+      'top:' + (Math.random() * window.innerHeight * 0.5) + 'px',
+      'width:' + w + 'px', 'height:' + w + 'px',
+      'background:' + all[Math.floor(Math.random() * all.length)],
+      'border-radius:' + (Math.random() > 0.5 ? '50%' : '3px'),
+      '--tx:' + ((Math.random() - 0.5) * 380) + 'px',
+      '--ty:' + (80 + Math.random() * 240) + 'px',
+      '--rot:' + (Math.random() * 720 - 360) + 'deg',
+      'opacity:0', 'pointer-events:none', 'z-index:99999',
+      'animation:confettiFall ' + (0.9 + Math.random() * 0.8) + 's ease forwards',
+      'animation-delay:' + (Math.random() * 0.35) + 's'
+    ].join(';');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 2600);
+  }
+}
+
+// ── Question Card Rendering ─────────────────────────────────
+function getRoundChipClass(roundName) {
+  const r = (roundName || '').toLowerCase();
+  if (r.includes('team - a') || r.includes('team a')) return 'team-a';
+  if (r.includes('team - b') || r.includes('team b')) return 'team-b';
+  if (r.includes('team - c') || r.includes('team c')) return 'team-c';
+  if (r.includes('rapid')) return 'rapid';
+  if (r.includes('who is')) return 'whois';
+  return '';
+}
+
+function renderImageElement(imageSource, altText) {
+  if (!imageSource) return '🎯';
+  // Check if it's an image file path or url
+  if (imageSource.includes('/') || imageSource.includes('.')) {
+    return `<img src="${escapeHtml(imageSource)}" class="answer-img-tag" alt="${escapeHtml(altText)}" onerror="this.outerHTML='🎯';" />`;
+  }
+  // Otherwise it's an emoji or plain symbol
+  return escapeHtml(imageSource);
+}
+
+function renderQuestion(i, direction) {
+  const total = questions.length;
+  if (total === 0) {
+    document.getElementById('cardWrapper').innerHTML = '<div class="card"><p>No questions available. Add some in Edit Mode!</p></div>';
+    return;
+  }
+
+  if (i < 0) i = 0;
+  if (i >= total) i = total - 1;
+  currentIndex = i;
+  isRevealed = false;
+
+  const q = questions[i];
+
+  // Update progress
+  document.getElementById('progressLabel').textContent = `Question ${i + 1} of ${total}`;
+  document.getElementById('progressFill').style.width = `${((i + 1) / total) * 100}%`;
+
+  const wrapper = document.getElementById('cardWrapper');
+  wrapper.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = direction === 'prev' ? 'card slide-in-left' : 'card';
+  card.id = 'theCard';
+
+  // Confetti container
+  const cc = document.createElement('div');
+  cc.className = 'confetti-container';
+  cc.id = 'confettiCont';
+  card.appendChild(cc);
+
+  // Round Chip
+  const chipClass = getRoundChipClass(q.round);
+  const chip = document.createElement('div');
+  chip.className = `round-chip ${chipClass}`;
+  chip.innerHTML = `<span>🎯</span> ${escapeHtml(q.round || 'General Round')}`;
+  card.appendChild(chip);
+
+  // Question Text
+  const qTitle = document.createElement('h2');
+  qTitle.className = 'question-title';
+  qTitle.textContent = q.question;
+  card.appendChild(qTitle);
+
+  // Options / Open format container
+  const optionsWrap = document.createElement('div');
+  optionsWrap.id = 'optionsWrap';
+  optionsWrap.style.width = '100%';
+
+  const hasOptions = Array.isArray(q.options) && q.options.length > 0;
+  if (hasOptions) {
+    const optContainer = document.createElement('div');
+    optContainer.className = `options-container ${q.options.length === 4 ? 'has-four' : ''}`;
+    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+    q.options.forEach((opt, optIdx) => {
+      const optEl = document.createElement('div');
+      optEl.className = 'option-item';
+      optEl.setAttribute('data-option-index', optIdx);
+      optEl.setAttribute('data-option-text', opt);
+
+      optEl.innerHTML = `
+        <div class="option-letter">${letters[optIdx] || (optIdx + 1)}</div>
+        <div class="option-text">${escapeHtml(opt)}</div>
+      `;
+      optContainer.appendChild(optEl);
+    });
+    optionsWrap.appendChild(optContainer);
+  } else {
+    optionsWrap.innerHTML = `
+      <div class="open-round-box">
+        <span>⚡</span> <span>Open Question • Direct Answer Round</span>
+      </div>
+    `;
+  }
+  card.appendChild(optionsWrap);
+
+  // Answer container (Hidden by default)
+  const ansCont = document.createElement('div');
+  ansCont.className = 'answer-container';
+
+  const hiddenHint = document.createElement('div');
+  hiddenHint.className = 'answer-hidden-hint';
+  hiddenHint.id = 'ansHiddenHint';
+  hiddenHint.innerHTML = `<span>🔒</span> <span>Answer Hidden</span>`;
+  ansCont.appendChild(hiddenHint);
+
+  const revealedBox = document.createElement('div');
+  revealedBox.className = 'answer-revealed-box';
+  revealedBox.id = 'ansRevealedBox';
+
+  revealedBox.innerHTML = `
+    <div class="answer-badge-tag">✓ Correct Answer</div>
+    <div class="answer-content-row">
+      <div class="answer-image-circle" id="ansImageCircle">
+        ${renderImageElement(q.image, q.answer)}
+      </div>
+      <div class="answer-main-text">${escapeHtml(q.answer)}</div>
+    </div>
+  `;
+  ansCont.appendChild(revealedBox);
+  card.appendChild(ansCont);
+
+  // Buttons Row
+  const btnRow = document.createElement('div');
+  btnRow.className = 'btn-row';
+
+  // Prev Button
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'action-btn btn-prev';
+  prevBtn.id = 'prevBtn';
+  prevBtn.innerHTML = `← Previous`;
+  prevBtn.setAttribute('aria-label', 'Go to previous question');
+  if (i === 0) prevBtn.disabled = true;
+  prevBtn.addEventListener('click', goPrev);
+  btnRow.appendChild(prevBtn);
+
+  // Reveal / Next Button
+  const mainBtn = document.createElement('button');
+  mainBtn.className = 'action-btn btn-reveal';
+  mainBtn.id = 'mainBtn';
+  mainBtn.innerHTML = `👁️ Reveal Answer`;
+  mainBtn.setAttribute('aria-label', 'Reveal answer');
+  mainBtn.addEventListener('click', handleMainAdvance);
+  btnRow.appendChild(mainBtn);
+
+  card.appendChild(btnRow);
+
+  // Hint bar
+  const hintDiv = document.createElement('div');
+  hintDiv.className = 'btn-divider';
+  hintDiv.textContent = '— Press SPACE or Right Arrow to reveal —';
+  card.appendChild(hintDiv);
+
+  wrapper.appendChild(card);
+}
+
+// ── Reveal Answer Handler ───────────────────────────────────
+function doRevealAnswer() {
+  if (isRevealed) return;
+  isRevealed = true;
+
+  const q = questions[currentIndex];
+
+  // Hide hidden hint & show revealed box
+  const hiddenHint = document.getElementById('ansHiddenHint');
+  const revealedBox = document.getElementById('ansRevealedBox');
+  if (hiddenHint) hiddenHint.style.display = 'none';
+  if (revealedBox) revealedBox.classList.add('visible');
+
+  // Highlight matching option & fade wrong options if options exist
+  if (Array.isArray(q.options) && q.options.length > 0) {
+    const optItems = document.querySelectorAll('.option-item');
+    const targetAns = (q.answer || '').trim().toLowerCase();
+
+    optItems.forEach(item => {
+      const optText = (item.getAttribute('data-option-text') || '').trim().toLowerCase();
+      // Check for direct match or substring match
+      const isCorrect = (optText === targetAns) ||
+                        targetAns.includes(optText) ||
+                        optText.includes(targetAns);
+
+      if (isCorrect) {
+        item.classList.add('correct');
+      } else {
+        item.classList.add('faded');
+      }
+    });
+  }
+
+  // Card Confetti
+  spawnCardConfetti();
+
+  // Change action button to Next Question / See Results
+  const mainBtn = document.getElementById('mainBtn');
+  if (mainBtn) {
+    mainBtn.className = 'action-btn btn-next';
+    const isLast = (currentIndex === questions.length - 1);
+    mainBtn.innerHTML = isLast ? `🎉 See Results` : `Next Question ➔`;
+    mainBtn.setAttribute('aria-label', isLast ? 'See results' : 'Next question');
+  }
+}
+
+// ── Question Navigation ─────────────────────────────────────
+function handleMainAdvance() {
+  if (isAnimating) return;
+
+  if (!isRevealed) {
+    doRevealAnswer();
+  } else {
+    // Next question or End screen
+    if (currentIndex >= questions.length - 1) {
+      switchView('end');
+      return;
+    }
+
+    isAnimating = true;
+    const card = document.getElementById('theCard');
+    if (card) {
+      card.classList.add('slide-out-left');
+      setTimeout(() => {
+        currentIndex++;
+        renderQuestion(currentIndex, 'next');
+        isAnimating = false;
+      }, 330);
+    } else {
+      currentIndex++;
+      renderQuestion(currentIndex, 'next');
+      isAnimating = false;
+    }
+  }
+}
+
+function goPrev() {
+  if (isAnimating || currentIndex <= 0) return;
+  isAnimating = true;
+  const card = document.getElementById('theCard');
+  if (card) {
+    card.classList.add('slide-out-right');
+    setTimeout(() => {
+      currentIndex--;
+      renderQuestion(currentIndex, 'prev');
+      isAnimating = false;
+    }, 330);
+  } else {
+    currentIndex--;
+    renderQuestion(currentIndex, 'prev');
+    isAnimating = false;
+  }
+}
+
+// ── Edit Mode Logic ─────────────────────────────────────────
+function renderEditList() {
+  const container = document.getElementById('editQuestionsList');
+  const countLabel = document.getElementById('editCountLabel');
+  if (!container) return;
+
+  countLabel.textContent = `${questions.length} Questions in Quiz`;
+  container.innerHTML = '';
+
+  questions.forEach((q, idx) => {
+    const card = document.createElement('div');
+    card.className = 'edit-q-card';
+    card.id = `editCard_${idx}`;
+
+    const optionsText = Array.isArray(q.options) ? q.options.join('\n') : '';
+
+    card.innerHTML = `
+      <div class="edit-q-card-header">
+        <div class="edit-q-badge">
+          <span>#${idx + 1}</span>
+          <span style="font-size:0.9rem; font-weight:500; color:var(--text-mid);">${escapeHtml(q.round || 'Round')}</span>
+        </div>
+        <button class="edit-btn edit-btn-danger" style="padding:4px 12px; font-size:0.82rem;" onclick="deleteQuestion(${idx})">
+          🗑️ Delete
+        </button>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Round Label</label>
+          <input type="text" class="form-input" id="edit_round_${idx}" value="${escapeHtml(q.round || '')}" placeholder="e.g. TEAM - A, MCQ Round, Rapid Fire" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image / Emoji</label>
+          <input type="text" class="form-input" id="edit_image_${idx}" value="${escapeHtml(q.image || '')}" placeholder="e.g. 🏏 or images/1.png" />
+          <div class="form-hint">Emoji or relative image file path</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Question Text</label>
+        <textarea class="form-textarea" id="edit_question_${idx}" rows="2">${escapeHtml(q.question || '')}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Options (One per line)</label>
+        <textarea class="form-textarea" id="edit_options_${idx}" rows="3" placeholder="Option A&#10;Option B&#10;Option C&#10;Option D">${escapeHtml(optionsText)}</textarea>
+        <div class="form-hint">Leave blank for Open Questions (Rapid Fire / Who is known as)</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Correct Answer</label>
+        <input type="text" class="form-input" id="edit_answer_${idx}" value="${escapeHtml(q.answer || '')}" placeholder="The exact correct answer" />
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function gatherEditData() {
+  const updated = [];
+  for (let idx = 0; idx < questions.length; idx++) {
+    const roundEl = document.getElementById(`edit_round_${idx}`);
+    const imgEl   = document.getElementById(`edit_image_${idx}`);
+    const qEl     = document.getElementById(`edit_question_${idx}`);
+    const optEl   = document.getElementById(`edit_options_${idx}`);
+    const ansEl   = document.getElementById(`edit_answer_${idx}`);
+
+    if (!roundEl || !qEl || !ansEl) continue;
+
+    const rawOptions = (optEl.value || '')
+      .split('\n')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    updated.push({
+      round: roundEl.value.trim() || 'General Round',
+      question: qEl.value.trim() || 'Untitled Question',
+      options: rawOptions,
+      answer: ansEl.value.trim() || '',
+      image: imgEl.value.trim() || '🏆'
+    });
+  }
+  return updated;
+}
+
+function addNewQuestion() {
+  // Sync current form fields first
+  questions = gatherEditData();
+  questions.push({
+    round: 'MCQ Round',
+    question: 'New Question Text Here',
+    options: ['Option A', 'Option B', 'Option C', 'Option D'],
+    answer: 'Option A',
+    image: '🏆'
+  });
+  saveQuestions(questions);
+  renderEditList();
+
+  // Scroll to bottom
+  setTimeout(() => {
+    const lastCard = document.getElementById(`editCard_${questions.length - 1}`);
+    if (lastCard) lastCard.scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
+
+function deleteQuestion(index) {
+  if (!confirm(`Delete Question #${index + 1}?`)) return;
+  questions = gatherEditData();
+  questions.splice(index, 1);
+  saveQuestions(questions);
+  renderEditList();
+}
+
+function resetToPdfDefaults() {
+  if (!confirm('Reset all questions to the original PDF defaults? Any custom edits will be overwritten.')) return;
+  questions = JSON.parse(JSON.stringify(DEFAULT_QUESTIONS));
+  saveQuestions(questions);
+  renderEditList();
+}
+
+// ── Export / Copy JSON Helper ───────────────────────────────
+function exportQuestionsJSON() {
+  questions = gatherEditData();
+  saveQuestions(questions);
+  const jsonStr = JSON.stringify(questions, null, 2);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(jsonStr).then(() => {
+      showToast('Copied questions JSON to clipboard!');
+    }).catch(() => {
+      prompt('Copy your questions JSON below:', jsonStr);
+    });
+  } else {
+    prompt('Copy your questions JSON below:', jsonStr);
+  }
+}
+
+// ── Helper: Safe HTML Escaping ──────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// ── Keyboard Shortcuts ──────────────────────────────────────
+document.addEventListener('keydown', function(e) {
+  // Only process shortcuts when in quiz mode and not focusing an input
+  if (currentView === 'quiz') {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      handleMainAdvance();
+      return;
+    }
+    if (e.code === 'ArrowRight') {
+      e.preventDefault();
+      handleMainAdvance();
+      return;
+    }
+    if (e.code === 'ArrowLeft') {
+      e.preventDefault();
+      goPrev();
+      return;
+    }
+    if (e.code === 'Escape') {
+      e.preventDefault();
+      switchView('home');
+      return;
+    }
+  }
+});
+
+// ── Event Listeners Setup ───────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Home buttons
+  document.getElementById('homeStartBtn').addEventListener('click', () => {
+    currentIndex = 0;
+    switchView('quiz');
+  });
+
+  document.getElementById('homeEditBtn').addEventListener('click', () => {
+    switchView('edit');
+  });
+
+  document.getElementById('quizHomeBtn').addEventListener('click', () => {
+    switchView('home');
+  });
+
+  // Edit buttons
+  document.getElementById('addQuestionBtn').addEventListener('click', addNewQuestion);
+  document.getElementById('resetDefaultsBtn').addEventListener('click', resetToPdfDefaults);
+  document.getElementById('exportBtn').addEventListener('click', exportQuestionsJSON);
+
+  document.getElementById('editBackHomeBtn').addEventListener('click', () => {
+    questions = gatherEditData();
+    saveQuestions(questions);
+    switchView('home');
+  });
+
+  document.getElementById('editSaveStartBtn').addEventListener('click', () => {
+    questions = gatherEditData();
+    saveQuestions(questions);
+    currentIndex = 0;
+    switchView('quiz');
+  });
+
+  // End screen buttons
+  document.getElementById('playAgainBtn').addEventListener('click', () => {
+    currentIndex = 0;
+    switchView('quiz');
+  });
+
+  document.getElementById('endHomeBtn').addEventListener('click', () => {
+    switchView('home');
+  });
+
+  // Initial view
+  switchView('home');
+});
+</script>
+</body>
+</html>
