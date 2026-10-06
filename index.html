@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sports Quiz Arena 🏆</title>
-  <meta name="description" content="Ultimate Sports Quiz Arena featuring Visual Rebuses, General Sports Quiz, and Personality & Sport Identification with dynamic neon themes." />
+  <meta name="description" content="Ultimate Sports Quiz Arena featuring General Knowledge, Rapid Fire Rounds, Legends & Sports Identification, and Buzzer Rounds." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -104,7 +104,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 820px;
+      max-width: 860px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -220,7 +220,7 @@
       pointer-events: none;
     }
 
-    /* ── Progress Bar ── */
+    /* ── Progress Bar & Meta ── */
     .progress-wrap {
       width: 100%;
       display: flex;
@@ -323,7 +323,7 @@
       100% { box-shadow: var(--shadow-card); }
     }
 
-    /* ── Step Tracker Component (Play & Recap Mode) ── */
+    /* ── Step Tracker Component (Round 3 & Recap Mode) ── */
     .step-tracker-container {
       width: 100%;
       display: flex;
@@ -385,8 +385,14 @@
       color: #d9480f;
       border-color: #ffd8a8;
     }
+    .chip-timer {
+      background: #fdf2f8;
+      color: #be185d;
+      border-color: #fbcfe8;
+      font-variant-numeric: tabular-nums;
+    }
 
-    /* ── Visual Media Container (Rebus / Photos) ── */
+    /* ── Visual Media Container (Photos / Icons) ── */
     .media-wrap {
       width: 100%;
       max-width: 540px;
@@ -450,15 +456,14 @@
       padding: 0 8px;
     }
 
-    /* ── Options (MCQ) ── */
+    /* ── MCQ Options Grid ── */
     .options-container {
       width: 100%;
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
-      margin: 4px 0;
     }
-    @media (min-width: 600px) {
+    @media (min-width: 540px) {
       .options-container.has-four {
         grid-template-columns: 1fr 1fr;
       }
@@ -466,35 +471,38 @@
     .option-item {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       padding: 14px 18px;
-      border-radius: 18px;
-      background: #f4f8fa;
-      border: 2px solid #e1ebf0;
+      border-radius: 16px;
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
       color: var(--text-dark);
-      font-size: 1.06rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      line-height: 1.3;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
     }
     .option-letter {
       width: 34px;
       height: 34px;
-      border-radius: 12px;
-      background: #e2edf2;
+      border-radius: 50%;
+      background: #e2e8f0;
       color: var(--text-mid);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.92rem;
       font-weight: 700;
-      font-size: 1rem;
       flex-shrink: 0;
+      transition: all 0.25s ease;
     }
     .option-item.correct {
       background: #ecfdf5 !important;
       border-color: #10b981 !important;
-      color: #065f46 !important;
+      color: #064e3b !important;
       transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
     }
     .option-item.correct .option-letter {
       background: #10b981 !important;
@@ -506,41 +514,125 @@
       filter: grayscale(40%);
     }
 
-    .open-prompt-box {
+    /* ── Rapid Fire 4-Question Cards Layout ── */
+    .rapid-fire-grid {
       width: 100%;
-      padding: 14px 20px;
-      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .rapid-item-card {
       background: #f8fafc;
-      border: 2px dashed #cbd5e1;
-      text-align: center;
+      border: 2px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .rapid-item-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.35;
+    }
+    .rapid-q-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #e2e8f0;
       color: var(--text-mid);
-      font-size: 1rem;
-      font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .rapid-ans-box {
+      margin-top: 4px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 1.5px solid #10b981;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      animation: popAnswer 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    }
+    .rapid-ans-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #059669;
+    }
+    .rapid-ans-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #064e3b;
     }
 
-    /* ── Answer Area ── */
+    /* ── Timer Box Widget ── */
+    .timer-widget {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 2px solid #e2e8f0;
+      border-radius: 99px;
+      padding: 6px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .timer-display {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #e11d48;
+      font-variant-numeric: tabular-nums;
+      min-width: 48px;
+      text-align: center;
+    }
+    .timer-btn {
+      background: #f1f5f9;
+      border: none;
+      cursor: pointer;
+      border-radius: 99px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      transition: all 0.2s;
+    }
+    .timer-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-dark);
+    }
+
+    /* ── Answer Reveal Area ── */
     .answer-container {
       width: 100%;
-      min-height: 70px;
+      min-height: 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 12px;
+      margin-top: 4px;
     }
     .answer-hidden-hint {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: rgba(26, 42, 53, 0.4);
       display: flex;
       align-items: center;
       gap: 8px;
       background: #f1f6f8;
-      padding: 8px 20px;
+      padding: 10px 22px;
       border-radius: 99px;
     }
     .answer-revealed-box {
@@ -548,8 +640,8 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
-      padding: 16px 20px;
+      gap: 14px;
+      padding: 18px 20px;
       border-radius: 22px;
       background: linear-gradient(135deg, #f0fdf9 0%, #e6faf5 100%);
       border: 2px solid #86efac;
@@ -563,13 +655,13 @@
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
     .answer-badge-tag {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: #059669;
       background: #d1fae5;
-      padding: 3px 12px;
+      padding: 4px 14px;
       border-radius: 99px;
     }
     .answer-content-row {
@@ -580,21 +672,11 @@
       flex-wrap: wrap;
     }
     .answer-circle-icon {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 3px solid #10b981;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
-      flex-shrink: 0;
-      overflow: hidden;
       font-size: 2.2rem;
+      line-height: 1;
     }
     .answer-text {
-      font-size: clamp(1.6rem, 5.2vw, 2.2rem);
+      font-size: clamp(1.6rem, 5.2vw, 2.3rem);
       font-weight: 700;
       color: #064e3b;
       text-align: center;
@@ -671,7 +753,7 @@
     .round-card {
       background: var(--card-bg);
       border-radius: 24px;
-      padding: 24px 26px;
+      padding: 22px 26px;
       box-shadow: var(--shadow-card);
       border: 2px solid rgba(255,255,255,0.95);
       display: flex;
@@ -733,38 +815,71 @@
       margin-top: 10px;
     }
 
-    /* ── Rules Screen ── */
+    /* ── Rules & Intro Screen ── */
     .rules-card {
       background: var(--card-bg);
       border-radius: 28px;
-      padding: 40px 30px;
+      padding: 38px 30px;
       box-shadow: var(--shadow-card);
       border: 2.5px solid rgba(255,255,255,0.95);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
       text-align: center;
       width: 100%;
       animation: bounceIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .rules-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .rules-icon { font-size: 4rem; line-height: 1; }
     .rules-title { font-size: 2.1rem; font-weight: 700; color: var(--text-dark); }
     .rules-box {
       width: 100%;
-      max-width: 560px;
+      max-width: 680px;
       background: #f8fafc;
       border: 2px solid #e2e8f0;
-      border-radius: 18px;
-      padding: 20px 24px;
+      border-radius: 20px;
+      padding: 24px 28px;
       font-size: 1.15rem;
-      line-height: 1.55;
-      color: var(--text-mid);
-      font-weight: 500;
+      line-height: 1.6;
+      color: var(--text-dark);
+      font-weight: 600;
       text-align: left;
     }
+    .rule-bullet-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .rule-bullet-item:last-child {
+      margin-bottom: 0;
+    }
+    .rule-arrow {
+      color: #e11d48;
+      font-size: 1.35rem;
+      line-height: 1.2;
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+    .rule-content {
+      flex: 1;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .rule-content strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
 
-    /* ── Round 3 Recap Screen (Scrollable & Clean) ── */
+    /* ── Round 3 Recap Screen ── */
     .recap-screen {
       background: var(--card-bg);
       border-radius: 28px;
@@ -798,63 +913,51 @@
       gap: 12px;
       border: 2px solid #e2e8f0;
     }
-    .recap-column.col-orange {
-      border-top: 4px solid var(--accent-orange);
-    }
-    .recap-column.col-teal {
-      border-top: 4px solid var(--accent-teal);
-    }
+    .recap-column.col-orange { border-color: #ffd8a8; background: #fffaf0; }
+    .recap-column.col-teal { border-color: #b8f2ea; background: #f0fdfa; }
+
     .recap-col-header {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(0,0,0,0.06);
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      padding-bottom: 8px;
-      border-bottom: 1.5px solid #edf2f7;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
-    .recap-col-header.text-orange { color: var(--accent-orange); }
-    .recap-col-header.text-teal { color: var(--accent-teal); }
+    .recap-col-header.text-orange { color: #d9480f; }
+    .recap-col-header.text-teal { color: #0c8f84; }
 
     .recap-items-list {
       display: flex;
       flex-direction: column;
-      gap: 9px;
-      max-height: 380px;
+      gap: 10px;
+      max-height: 440px;
       overflow-y: auto;
       padding-right: 4px;
     }
-    /* Custom scrollbar for recap list */
-    .recap-items-list::-webkit-scrollbar { width: 6px; }
-    .recap-items-list::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 8px; }
-    .recap-items-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
-    .recap-items-list::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
     .recap-item-row {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: #ffffff;
+      background: #fff;
       padding: 8px 12px;
       border-radius: 14px;
-      border: 1px solid #e2e8f0;
+      border: 1.5px solid #e2e8f0;
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
     .recap-thumb {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
-      object-fit: cover;
+      overflow: hidden;
       background: #f1f5f9;
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-      border: 1.5px solid #e2e8f0;
-      overflow: hidden;
     }
     .recap-thumb img {
       width: 100%;
@@ -862,39 +965,12 @@
       object-fit: cover;
     }
     .recap-item-name {
-      font-size: 0.96rem;
+      font-size: 1.02rem;
       font-weight: 700;
       color: var(--text-dark);
-      line-height: 1.25;
     }
 
-    /* ── Standard End Screen ── */
-    .end-screen {
-      background: var(--card-bg);
-      border-radius: 28px;
-      padding: 48px 30px;
-      box-shadow: var(--shadow-card);
-      border: 2.5px solid rgba(255,255,255,0.95);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      text-align: center;
-      width: 100%;
-      animation: bounceIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-    .end-emoji {
-      font-size: 4.8rem;
-      animation: spinPop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-    @keyframes spinPop {
-      0%   { opacity: 0; transform: rotate(-50deg) scale(0.4); }
-      100% { opacity: 1; transform: rotate(0deg) scale(1); }
-    }
-    .end-title { font-size: 2.4rem; font-weight: 700; color: var(--text-dark); }
-    .end-subtitle { font-size: 1.15rem; color: var(--text-mid); font-weight: 500; max-width: 480px; }
-
-    /* ── Edit Mode ── */
+    /* ── Edit Mode Styles ── */
     .edit-container {
       width: 100%;
       display: flex;
@@ -952,18 +1028,6 @@
       align-items: center;
       border-bottom: 1.5px solid #edf2f7;
       padding-bottom: 10px;
-    }
-    .warning-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #fef2f2;
-      color: #dc2626;
-      border: 1px solid #fecaca;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 700;
     }
     .form-group {
       display: flex;
@@ -1086,7 +1150,7 @@
   <section class="view-section active" id="homeView">
     <header class="app-header">
       <h1 class="main-title">🏆 Sports Quiz Arena</h1>
-      <p class="main-subtitle">Conquer Visual Rebuses, General Knowledge & Sports Legends</p>
+      <p class="main-subtitle">General Knowledge • Rapid Fire • Legends & Disciplines • Buzzer Round</p>
     </header>
 
     <div class="rounds-grid" id="homeRoundsGrid">
@@ -1104,24 +1168,31 @@
   </section>
 
   <!-- ========================================== -->
-  <!-- 2. RULES SCREEN                            -->
+  <!-- 2. ROUND INTRO / RULES SCREEN              -->
   <!-- ========================================== -->
   <section class="view-section" id="rulesView">
     <header class="app-header">
-      <h1 class="main-title" style="font-size:clamp(1.8rem, 5vw, 2.5rem);">📋 Round Rules</h1>
+      <h1 class="main-title" style="font-size:clamp(1.8rem, 5vw, 2.5rem);">📋 Round Introduction</h1>
+      <p class="main-subtitle" id="rulesSubtitle">Review rules and scoring guidelines before you begin</p>
     </header>
 
     <div class="rules-card">
-      <div class="rules-icon" id="rulesIcon">🧩</div>
-      <h2 class="rules-title" id="rulesTitle">Round 1: Guess The Sport</h2>
-      <div class="rules-box" id="rulesText">
-        <!-- Injected by JS -->
+      <div class="rules-icon" id="rulesIcon">🏆</div>
+      <h2 class="rules-title" id="rulesTitle">Round 1: General Round</h2>
+      
+      <div class="rules-badge-row" id="rulesBadges">
+        <!-- Injected badges (e.g. +10 Pts, 30s Time Limit) -->
       </div>
+
+      <div class="rules-box" id="rulesText">
+        <!-- Formatted bullet rules with red arrows injected by JS -->
+      </div>
+
       <div class="btn-row">
         <button class="btn btn-ghost" id="rulesBackHomeBtn" style="color:var(--text-dark); border-color:#cbd5e1;">
           🏠 Back to Home
         </button>
-        <button class="btn btn-primary" id="rulesStartBtn" style="padding:14px 36px; font-size:1.15rem;">
+        <button class="btn btn-primary" id="rulesStartBtn" style="padding:14px 38px; font-size:1.15rem;">
           🚀 Start Round
         </button>
       </div>
@@ -1136,15 +1207,13 @@
       <h1 class="main-title" style="font-size:clamp(1.7rem, 4.5vw, 2.3rem);">🏆 Sports Quiz Arena</h1>
     </header>
 
-    <!-- Round 3 Step Tracker (Dynamically shown for Round 3 / sectioned rounds) -->
-    <div id="playStepTracker" style="display:none; width:100%;">
-      <!-- Injected by renderPlayQuestion -->
-    </div>
+    <!-- Step Tracker (For Round 3 or Multi-part rounds) -->
+    <div id="playStepTracker" style="display:none; width:100%;"></div>
 
     <!-- Progress Wrap -->
     <div class="progress-wrap">
       <div class="progress-meta">
-        <div class="progress-label" id="progressLabel">Question 1 of 15</div>
+        <div class="progress-label" id="progressLabel">Question 1 of 12</div>
         <div style="display:flex; gap:8px; align-items:center;">
           <span class="progress-round-tag" id="progressRoundTag">Round 1</span>
           <button class="btn btn-ghost" id="playHomeBtn" style="padding:4px 14px; font-size:0.88rem;" title="Home (Esc)">
@@ -1180,7 +1249,7 @@
     <div class="recap-screen">
       <!-- Step Tracker Header -->
       <div class="step-tracker-container">
-        <div class="step-node done">1. Welcome</div>
+        <div class="step-node done">1. Intro</div>
         <span class="step-arrow">➔</span>
         <div class="step-node done">2. Personality</div>
         <span class="step-arrow">➔</span>
@@ -1199,34 +1268,39 @@
           🔄 Play Again
         </button>
         <button class="btn btn-primary" id="recapNextBtn" style="display:none;">
-          ➡️ Next Round
+          Next Round ➔
         </button>
         <button class="btn btn-secondary" id="recapHomeBtn">
-          🏠 Home
+          🏠 Home Screen
         </button>
       </div>
     </div>
   </section>
 
   <!-- ========================================== -->
-  <!-- 5. STANDARD END VIEW                       -->
+  <!-- 5. STANDARD END SCREEN                     -->
   <!-- ========================================== -->
   <section class="view-section" id="endView">
-    <div class="end-screen">
-      <div class="end-emoji">🏆</div>
-      <div class="end-title" id="endTitle">Round Complete!</div>
-      <div class="end-subtitle" id="endSubtitle">
-        Outstanding performance! You cracked all the questions in this challenge.
-      </div>
-      <div class="btn-row" style="margin-top:12px;">
+    <header class="app-header">
+      <h1 class="main-title" style="font-size:clamp(1.8rem, 5vw, 2.5rem);">🎉 Round Finished!</h1>
+    </header>
+
+    <div class="card" style="text-align:center; padding:44px 28px;">
+      <div style="font-size:4.5rem; line-height:1;">🏆</div>
+      <h2 class="rules-title" id="endTitle">Great Job!</h2>
+      <p style="font-size:1.15rem; color:var(--text-mid); max-width:500px;" id="endSubtitle">
+        You have completed all questions in this round.
+      </p>
+
+      <div class="btn-row" style="margin-top:10px;">
         <button class="btn btn-teal" id="endReplayBtn">
-          🔄 Replay Round
+          🔄 Play Again
         </button>
         <button class="btn btn-primary" id="endNextRoundBtn" style="display:none;">
-          ➡️ Next Round
+          Next Round ➔
         </button>
         <button class="btn btn-secondary" id="endHomeBtn">
-          🏠 Back to Home
+          🏠 Home Screen
         </button>
       </div>
     </div>
@@ -1238,7 +1312,7 @@
   <section class="view-section" id="editView">
     <header class="app-header">
       <h1 class="main-title" style="font-size:clamp(1.8rem, 5vw, 2.5rem);">✏️ Quiz Editor</h1>
-      <p class="main-subtitle">Manage rounds, questions, images & neon palettes</p>
+      <p class="main-subtitle">Add, edit, reorder questions, rounds, and upload images</p>
     </header>
 
     <div class="edit-container">
@@ -1261,14 +1335,14 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Round Rules Text</label>
-          <textarea class="form-textarea" id="editRoundRules" rows="2"></textarea>
+          <label class="form-label">Round Rules (One bullet per line)</label>
+          <textarea class="form-textarea" id="editRoundRules" rows="4"></textarea>
         </div>
 
         <!-- Top Action Buttons -->
         <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:space-between; border-top:1.5px solid #edf2f7; padding-top:14px;">
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button class="btn btn-teal" id="btnAddQuestion" style="padding:8px 18px; font-size:0.92rem;">➕ Add Question</button>
+            <button class="btn btn-teal" id="btnAddQuestion" style="padding:8px 18px; font-size:0.92rem;">➕ Add Item</button>
             <button class="btn btn-secondary" id="btnAddRound" style="padding:8px 18px; font-size:0.92rem;">✨ Add Round</button>
             <button class="btn btn-secondary" id="btnDeleteRound" style="padding:8px 18px; font-size:0.92rem; color:#e11d48;">🗑️ Delete Round</button>
           </div>
@@ -1312,89 +1386,73 @@
 
 <script>
 // ==========================================================================
-//  DATA MODEL & DEFAULT QUESTIONS (SYNCED FROM IMAGES FOLDER)
+//  DATA MODEL & 4 RESTRUCTURED QUIZ ROUNDS
 // ==========================================================================
 const DEFAULT_ROUNDS = [
-  // ── ROUND 1: Guess The Sport (Rebus) ──────────────────────────────────
+  // ── ROUND 1: General Round ────────────────────────────────────────────
   {
     id: "round-1",
-    name: "Guess The Sport (Rebus)",
-    icon: "🧩",
-    rules: "Decode the rebus picture clue to identify the sport! Look carefully at the icons, symbols, and puns.",
-    questions: [
-      { type: "image", question: "", image: "images/1.png", options: [], answer: "Archery", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/2.png", options: [], answer: "Squash", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/3.png", options: [], answer: "Badminton", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/4.png", options: [], answer: "Football", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/5.png", options: [], answer: "Tennis", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/6.png", options: [], answer: "American Football", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/7.png", options: [], answer: "Ice Hockey", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/8.png", options: [], answer: "Karate", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/9.png", options: [], answer: "Formula 1", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/10.png", options: [], answer: "Table Tennis", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/11.png", options: [], answer: "Bowling", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/12.png", options: [], answer: "Wrestling", rules: "", section: "Rebus" },
-      { type: "image", question: "", image: "images/13.png", options: [], answer: "Triathlon", rules: "", section: "Rebus" }
-    ]
-  },
-
-  // ── ROUND 2: General Sports Quiz (PDF) ────────────────────────────────
-  {
-    id: "round-2",
-    name: "General Sports Quiz (PDF)",
+    name: "General Round",
     icon: "🏆",
-    rules: "Answer questions across Team Rounds, MCQs, Rapid Fire, and Legends! Pick your answer or guess before revealing.",
+    badge: "12 Questions • +10 Points",
+    rules: [
+      "Total number of questions – 12",
+      "Each team will get 3 questions.",
+      "For Each correct Answer - 10 Points.",
+      "Time limit - 30 seconds.",
+      "No negative marks.",
+      "No pass questions.",
+      "First response is considered."
+    ].join('\n'),
     questions: [
-      // Team Rounds
       {
         type: "mcq",
+        section: "Team A",
         question: "What is the name of the autobiography of P.T. Usha?",
         options: ["Playing to Win", "Unbreakable", "Golden Girl", "Ace Against Odds"],
         answer: "Golden Girl",
         image: "🏃‍♀️",
-        rules: "",
-        section: "TEAM - A"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team B",
         question: "In which sport has India won 8 gold medals in the Olympic Games?",
         options: ["Wrestling", "Shooting", "Weightlifting", "Field Hockey"],
         answer: "Field Hockey",
         image: "🏑",
-        rules: "",
-        section: "TEAM - B"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team C",
         question: "The National sport of Sri Lanka is –",
         options: ["Baseball", "Volleyball", "Cricket", "Badminton"],
         answer: "Volleyball",
         image: "🏐",
-        rules: "",
-        section: "TEAM - C"
+        rules: ""
       },
-
-      // MCQs
       {
         type: "mcq",
+        section: "Team D",
         question: "Which country is known as “the home of cricket”?",
         options: ["England", "Australia", "West Indies", "South Africa"],
         answer: "England",
         image: "🏏",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team A",
         question: "The playground of baseball is known as –",
         options: ["Court", "Pitch", "Ring", "Diamond"],
         answer: "Diamond",
         image: "⚾",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team B",
         question: "What does BWF stand for?",
         options: [
           "Badminton World Federation",
@@ -1404,29 +1462,29 @@ const DEFAULT_ROUNDS = [
         ],
         answer: "Badminton World Federation",
         image: "🏸",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team C",
         question: "The term ‘double fault’ is associated with which sport?",
         options: ["Chess", "Rugby", "Tennis", "Basketball"],
         answer: "Tennis",
         image: "🎾",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team D",
         question: "Which football player is known as ‘Black Pearl’?",
         options: ["Pelé", "Bolt", "Roosevelt", "Tendulkar"],
         answer: "Pelé",
         image: "⚽",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team A",
         question: "Which national cricket team is called by ‘Kangaroos’?",
         options: [
           "Indian Cricket Team",
@@ -1436,20 +1494,11 @@ const DEFAULT_ROUNDS = [
         ],
         answer: "Australian Cricket Team",
         image: "🦘",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
-        question: "‘Playing It My Way’ is the autobiography of –",
-        options: ["Sachin Tendulkar", "Usain Bolt", "P.T. Usha", "Muhammad Ali"],
-        answer: "Sachin Tendulkar",
-        image: "🏏",
-        rules: "",
-        section: "MCQ Round"
-      },
-      {
-        type: "mcq",
+        section: "Team B",
         question: "Which is the largest cricket stadium in the world?",
         options: [
           "Eden Gardens",
@@ -1459,330 +1508,262 @@ const DEFAULT_ROUNDS = [
         ],
         answer: "Motera Stadium",
         image: "🏟️",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
+        section: "Team C",
         question: "Which country won the first Blind Women’s T20 World Cup?",
         options: ["Australia", "Sri Lanka", "Nepal", "India"],
         answer: "India",
         image: "🏆",
-        rules: "",
-        section: "MCQ Round"
+        rules: ""
       },
       {
         type: "mcq",
-        question: "Penholder grip is used in which of the following sports?",
-        options: ["Cricket", "Hockey", "Table Tennis", "Badminton"],
-        answer: "Table Tennis",
-        image: "🏓",
-        rules: "",
-        section: "MCQ Round"
-      },
-      {
-        type: "mcq",
-        question: "Which country has hosted the Olympics the most times?",
-        options: ["Germany", "England", "USA", "France"],
-        answer: "USA",
-        image: "🥇",
-        rules: "",
-        section: "MCQ Round"
-      },
-      {
-        type: "mcq",
-        question: "How many countries participated in the first modern Olympics?",
-        options: ["12", "15", "14", "21"],
-        answer: "14",
-        image: "🏛️",
-        rules: "",
-        section: "MCQ Round"
-      },
-      {
-        type: "mcq",
+        section: "Team D",
         question: "What is the official national sport of China?",
         options: ["Hockey", "Badminton", "Cricket", "Table Tennis"],
         answer: "Table Tennis",
         image: "🏓",
-        rules: "",
-        section: "MCQ Round"
-      },
-
-      // Rapid Fire
-      {
-        type: "open",
-        question: "The term “Dolphin Kick” is related to which game?",
-        options: [],
-        answer: "Swimming",
-        image: "🏊‍♂️",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "“Durand Cup” is associated with which game?",
-        options: [],
-        answer: "Football",
-        image: "⚽",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "“Triples” is a new format of which game?",
-        options: [],
-        answer: "Badminton",
-        image: "🏸",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "The term “Googly” is associated with which game?",
-        options: [],
-        answer: "Cricket",
-        image: "🏏",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "“The World Beneath His Feet” is a biography of which player?",
-        options: [],
-        answer: "Pullela Gopichand",
-        image: "🏸",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "“281 And Beyond” is the autobiography of which player?",
-        options: [],
-        answer: "VVS Laxman",
-        image: "🏏",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "“Straight From The Heart” is an autobiography of which player?",
-        options: [],
-        answer: "Kapil Dev",
-        image: "🏏",
-        rules: "",
-        section: "Rapid Fire"
-      },
-      {
-        type: "open",
-        question: "“Ezra Cup” is related to which game?",
-        options: [],
-        answer: "Polo",
-        image: "🐎",
-        rules: "",
-        section: "Rapid Fire"
-      },
-
-      // Legends
-      {
-        type: "open",
-        question: "Who is known as ‘God of Cricket’?",
-        options: [],
-        answer: "Sachin Tendulkar",
-        image: "👑",
-        rules: "",
-        section: "Who is known as..."
-      },
-      {
-        type: "open",
-        question: "Who is known as ‘Run Machine’?",
-        options: [],
-        answer: "Virat Kohli",
-        image: "⚡",
-        rules: "",
-        section: "Who is known as..."
-      },
-      {
-        type: "open",
-        question: "Who is known as ‘Captain Cool’?",
-        options: [],
-        answer: "M.S. Dhoni",
-        image: "🧤",
-        rules: "",
-        section: "Who is known as..."
-      },
-      {
-        type: "open",
-        question: "Who is known as ‘Hitman’?",
-        options: [],
-        answer: "Rohit Sharma",
-        image: "💥",
-        rules: "",
-        section: "Who is known as..."
-      },
-      {
-        type: "open",
-        question: "Who is known as ‘The Wall’?",
-        options: [],
-        answer: "Rahul Dravid",
-        image: "🧱",
-        rules: "",
-        section: "Who is known as..."
-      },
-      {
-        type: "open",
-        question: "Who is known as ‘Little Master’?",
-        options: [],
-        answer: "Sunil Gavaskar",
-        image: "🏏",
-        rules: "",
-        section: "Who is known as..."
-      },
-      {
-        type: "open",
-        question: "Who is known as ‘Miyan Bhai’?",
-        options: [],
-        answer: "Mohammed Siraj",
-        image: "🎯",
-        rules: "",
-        section: "Who is known as..."
+        rules: ""
       }
     ]
   },
 
-  // ── ROUND 3: Identify the Personality & Sport (11 Personalities + 4 Sports = 15 Total) ──
+  // ── ROUND 2: Rapid Fire Round ─────────────────────────────────────────
+  {
+    id: "round-2",
+    name: "Rapid Fire Round",
+    icon: "⚡",
+    badge: "4 Questions Per Team • 1 Minute • +5 Points Each",
+    rules: [
+      "Each team will answer 4 questions in one minute.",
+      "Each correct answer will fetch you 5 points.",
+      "You can say pass to go to the next question and come back to the unanswered question / questions within the stipulated time ( 1 minute).",
+      "No negative marks for the wrong answer."
+    ].join('\n'),
+    questions: [
+      {
+        type: "rapid_set",
+        section: "Team A",
+        title: "Team A Rapid Fire Set",
+        image: "⚡",
+        rules: "1 Minute on the clock! Answer 4 rapid fire questions:",
+        items: [
+          { q: "The term “Dolphin Kick” is related to which game?", a: "Swimming" },
+          { q: "“Durand Cup” is associated with which game?", a: "Football" },
+          { q: "“Triples” is a new format of which game?", a: "Badminton" },
+          { q: "The term “Googly” is associated with which game?", a: "Cricket" }
+        ]
+      },
+      {
+        type: "rapid_set",
+        section: "Team B",
+        title: "Team B Rapid Fire Set",
+        image: "⚡",
+        rules: "1 Minute on the clock! Answer 4 rapid fire questions:",
+        items: [
+          { q: "“The World Beneath His Feet” is a biography of which player?", a: "Pullela Gopichand" },
+          { q: "“281 And Beyond” is the autobiography of which player?", a: "VVS Laxman" },
+          { q: "“Straight From The Heart” is an autobiography of which player?", a: "Kapil Dev" },
+          { q: "“Ezra Cup” is related to which game?", a: "Polo" }
+        ]
+      },
+      {
+        type: "rapid_set",
+        section: "Team C",
+        title: "Team C Rapid Fire Set (Legends)",
+        image: "⚡",
+        rules: "1 Minute on the clock! Answer 4 rapid fire questions:",
+        items: [
+          { q: "Who is known as ‘God of Cricket’?", a: "Sachin Tendulkar" },
+          { q: "Who is known as ‘Run Machine’?", a: "Virat Kohli" },
+          { q: "Who is known as ‘Captain Cool’?", a: "M.S. Dhoni" },
+          { q: "Who is known as ‘Hitman’?", a: "Rohit Sharma" }
+        ]
+      },
+      {
+        type: "rapid_set",
+        section: "Team D",
+        title: "Team D Rapid Fire Set (Legends)",
+        image: "⚡",
+        rules: "1 Minute on the clock! Answer 4 rapid fire questions:",
+        items: [
+          { q: "Who is known as ‘The Wall’?", a: "Rahul Dravid" },
+          { q: "Who is known as ‘Little Master’?", a: "Sunil Gavaskar" },
+          { q: "Who is known as ‘Miyan Bhai’?", a: "Mohammed Siraj" },
+          { q: "‘Playing It My Way’ is the autobiography of which cricketer?", a: "Sachin Tendulkar" }
+        ]
+      }
+    ]
+  },
+
+  // ── ROUND 3: Identify the Personality & Sport ─────────────────────────
   {
     id: "round-3",
     name: "Identify the Personality & Sport",
     icon: "🌟",
-    rules: "Section 1: Look at the photo and name the legendary sports star.\nSection 2: Look at the visual clue and identify the sport discipline!",
+    badge: "14 Questions • +10 Points",
+    rules: [
+      "RULES :",
+      "Each Team will get 2 questions",
+      "For each correct answer - 10 points.",
+      "Time limit - 30 seconds.",
+      "No negative marks. No Pass questions.",
+      "First response is considered."
+    ].join('\n'),
     questions: [
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/LeBron James.jpg",
-            "options": [],
-            "answer": "LeBron James",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/LeBron James.jpg",
+        options: [],
+        answer: "LeBron James",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/usain Bolt.jpg",
-            "options": [],
-            "answer": "Usain Bolt",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/usain Bolt.jpg",
+        options: [],
+        answer: "Usain Bolt",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/Muttiah Muralitharan.jpg",
-            "options": [],
-            "answer": "Muttiah Muralitharan",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/Muttiah Muralitharan.jpg",
+        options: [],
+        answer: "Muttiah Muralitharan",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/Dhanraj Pillay.jpg",
-            "options": [],
-            "answer": "Dhanraj Pillay",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/Dhanraj Pillay.jpg",
+        options: [],
+        answer: "Dhanraj Pillay",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/Geeta And Babita Phogat.jpg",
-            "options": [],
-            "answer": "Geeta and Babita Phogat",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/Geeta And Babita Phogat.jpg",
+        options: [],
+        answer: "Geeta and Babita Phogat",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/leander paes and mahesh bhupathi.jpg",
-            "options": [],
-            "answer": "Leander Paes and Mahesh Bhupathi",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/leander paes and mahesh bhupathi.jpg",
+        options: [],
+        answer: "Leander Paes and Mahesh Bhupathi",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/Rafael Nadal.jpg",
-            "options": [],
-            "answer": "Rafael Nadal",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/Rafael Nadal.jpg",
+        options: [],
+        answer: "Rafael Nadal",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/Rani Rampal.jpg",
-            "options": [],
-            "answer": "Rani Rampal",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/Rani Rampal.jpg",
+        options: [],
+        answer: "Rani Rampal",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/serena williams and venus williams.jpg",
-            "options": [],
-            "answer": "Serena Williams and Venus Williams",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/serena williams and venus williams.jpg",
+        options: [],
+        answer: "Serena Williams and Venus Williams",
+        rules: ""
       },
       {
-            "type": "personality",
-            "section": "Personality",
-            "question": "Name this legendary sports personality:",
-            "image": "images/vaishali and praggnanandhaa.jpg",
-            "options": [],
-            "answer": "Vaishali and Praggnanandhaa",
-            "rules": ""
+        type: "personality",
+        section: "Personality",
+        question: "Name this legendary sports personality:",
+        image: "images/vaishali and praggnanandhaa.jpg",
+        options: [],
+        answer: "Vaishali and Praggnanandhaa",
+        rules: ""
       },
       {
-            "type": "sport",
-            "section": "Sport",
-            "question": "Identify this sport from the image:",
-            "image": "images/Windsurfing.jpg",
-            "options": [],
-            "answer": "Windsurfing",
-            "rules": ""
+        type: "sport",
+        section: "Sport",
+        question: "Identify this sport from the image:",
+        image: "images/Windsurfing.jpg",
+        options: [],
+        answer: "Windsurfing",
+        rules: ""
       },
       {
-            "type": "sport",
-            "section": "Sport",
-            "question": "Identify this sport from the image:",
-            "image": "images/Netball.jpg",
-            "options": [],
-            "answer": "Netball",
-            "rules": ""
+        type: "sport",
+        section: "Sport",
+        question: "Identify this sport from the image:",
+        image: "images/Netball.jpg",
+        options: [],
+        answer: "Netball",
+        rules: ""
       },
       {
-            "type": "sport",
-            "section": "Sport",
-            "question": "Identify this sport from the image:",
-            "image": "images/Water Polo.jpg",
-            "options": [],
-            "answer": "Water Polo",
-            "rules": ""
+        type: "sport",
+        section: "Sport",
+        question: "Identify this sport from the image:",
+        image: "images/Water Polo.jpg",
+        options: [],
+        answer: "Water Polo",
+        rules: ""
       },
       {
-            "type": "sport",
-            "section": "Sport",
-            "question": "Identify this sport from the image:",
-            "image": "images/Gymnastics.jpg",
-            "options": [],
-            "answer": "Gymnastics",
-            "rules": ""
+        type: "sport",
+        section: "Sport",
+        question: "Identify this sport from the image:",
+        image: "images/Gymnastics.jpg",
+        options: [],
+        answer: "Gymnastics",
+        rules: ""
       }
-]
+    ]
+  },
+
+  // ── ROUND 4: Guess The Sport (Buzzer Round) ───────────────────────────
+  {
+    id: "round-4",
+    name: "Guess The Sport",
+    icon: "🔔",
+    badge: "Buzzer Round • 8 Questions • +10 / -2 Points",
+    rules: [
+      "Total number of questions in this round will be 8.",
+      "In this round, the team who presses the buzzer first will get a chance and get 10 points for the correct answer.",
+      "- 2 points for the wrong answer."
+    ].join('\n'),
+    questions: [
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/1.png", options: [], answer: "Archery", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/2.png", options: [], answer: "Squash", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/3.png", options: [], answer: "Badminton", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/4.png", options: [], answer: "Football", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/5.png", options: [], answer: "Tennis", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/6.png", options: [], answer: "American Football", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/7.png", options: [], answer: "Ice Hockey", rules: "", section: "Buzzer Round" },
+      { type: "image", question: "Guess the sport from the visual clue:", image: "images/8.png", options: [], answer: "Karate", rules: "", section: "Buzzer Round" }
+    ]
   }
 ];
 
@@ -1806,7 +1787,7 @@ const NEON_PALETTE = [
 
 const DEFAULT_TEAL = { c1: '#0FBFB0', c2: '#14D6C4' };
 const CONFETTI_COLORS = ['#FF4E6A', '#FFD700', '#14D6C4', '#A78BFA', '#FB923C', '#34D399', '#38BDF8'];
-const STORAGE_KEY = 'sports_quiz_arena_data_v4';
+const STORAGE_KEY = 'sports_quiz_arena_data_v5';
 
 // Working State
 let roundsData = loadRoundsData();
@@ -1819,6 +1800,11 @@ let isAllRoundsMode = false;
 let currentNeonIndex = -1;
 let activeBgLayer = 'A';
 let selectedEditRoundIndex = 0;
+
+// Rapid fire timer state
+let timerInterval = null;
+let timerSeconds = 60;
+let timerRunning = false;
 
 // ── Persistence ─────────────────────────────────────────────
 function loadRoundsData() {
@@ -1896,7 +1882,7 @@ function resetTealBackground() {
 (function initSparkles() {
   const layer = document.getElementById('sparkleLayer');
   if (!layer) return;
-  const chars = ['✦', '✧', '★', '⋆', '✷', '✵', '⚽', '🏏', '🏆', '🎾', '🏀'];
+  const chars = ['✦', '✧', '★', '⋆', '✷', '✵', '⚽', '🏏', '🏆', '🎾', '🏀', '🔔'];
   for (let i = 0; i < 34; i++) {
     const el = document.createElement('div');
     el.className = 'sparkle';
@@ -1973,6 +1959,7 @@ function triggerBigConfetti() {
 function switchView(viewName) {
   currentView = viewName;
   document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+  stopTimer();
 
   if (viewName === 'home') {
     resetTealBackground();
@@ -2010,12 +1997,15 @@ function renderHomeScreen() {
   roundsData.forEach((r, idx) => {
     const card = document.createElement('div');
     card.className = 'round-card';
+    const qCount = r.questions ? r.questions.length : 0;
+    const descText = r.badge || `${qCount} Questions`;
+
     card.innerHTML = `
       <div class="round-card-info">
         <div class="round-card-icon">${escapeHtml(r.icon || '🏆')}</div>
         <div>
           <div class="round-card-title">Round ${idx + 1}: ${escapeHtml(r.name)}</div>
-          <div class="round-card-desc">${r.questions ? r.questions.length : 0} Questions • ${escapeHtml(r.rules ? r.rules.substring(0, 60) + '...' : 'Interactive sports quiz')}</div>
+          <div class="round-card-desc">${qCount} Questions • ${escapeHtml(descText)}</div>
         </div>
       </div>
       <button class="btn btn-teal" onclick="startSingleRound(${idx})" style="padding:11px 28px;">
@@ -2040,14 +2030,54 @@ function startAllRounds() {
   switchView('rules');
 }
 
-// ── 2. Rules Screen ─────────────────────────────────────────
+// ── 2. Rules / Intro Screen ─────────────────────────────────
 function renderRulesScreen() {
   const round = roundsData[activeRoundIndex];
   if (!round) return;
 
   document.getElementById('rulesIcon').textContent = round.icon || '🏆';
   document.getElementById('rulesTitle').textContent = `Round ${activeRoundIndex + 1}: ${round.name}`;
-  document.getElementById('rulesText').innerHTML = escapeHtml(round.rules || 'Get ready for this round! Click start when ready.').replace(/\n/g, '<br>');
+  document.getElementById('rulesSubtitle').textContent = `Intro & Rules for Round ${activeRoundIndex + 1}`;
+
+  // Badges Row
+  const badgeRow = document.getElementById('rulesBadges');
+  badgeRow.innerHTML = '';
+
+  const rChip = document.createElement('div');
+  rChip.className = 'chip';
+  rChip.innerHTML = `<span>${escapeHtml(round.icon || '🏆')}</span> <span>Round ${activeRoundIndex + 1}</span>`;
+  badgeRow.appendChild(rChip);
+
+  if (round.badge) {
+    const bChip = document.createElement('div');
+    bChip.className = 'chip chip-section';
+    bChip.textContent = round.badge;
+    badgeRow.appendChild(bChip);
+  }
+
+  // Format rules text with exact red arrows '➤'
+  const rulesBox = document.getElementById('rulesText');
+  const rawRules = round.rules || '';
+  const lines = rawRules.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+  if (lines.length === 0) {
+    rulesBox.innerHTML = `<p style="text-align:center; color:var(--text-mid);">Get ready for Round ${activeRoundIndex + 1}! Click Start when you're ready.</p>`;
+  } else {
+    rulesBox.innerHTML = lines.map(line => {
+      // Check if line is just "RULES :"
+      if (line.toUpperCase() === 'RULES :' || line.toUpperCase() === 'RULES:') {
+        return `<div style="font-size:1.25rem; font-weight:700; color:#0f172a; margin-bottom:8px; text-decoration:underline;">RULES :</div>`;
+      }
+      // Remove any leading ➤ if present
+      const cleanLine = line.replace(/^[➤>\-•*]+\s*/, '');
+      return `
+        <div class="rule-bullet-item">
+          <span class="rule-arrow">➤</span>
+          <span class="rule-content">${escapeHtml(cleanLine)}</span>
+        </div>
+      `;
+    }).join('');
+  }
 }
 
 // ── 3. Play Mode & Question Rendering ───────────────────────
@@ -2055,7 +2085,6 @@ function renderMediaTag(imageSrc, altText, isPhoto) {
   if (!imageSrc) {
     return `<div class="media-fallback"><div class="media-fallback-icon">🎯</div><div class="media-fallback-text">Add image</div></div>`;
   }
-  // Check if it's an emoji string or data URL / path
   if (!imageSrc.includes('/') && !imageSrc.includes('.') && !imageSrc.startsWith('data:')) {
     return `<div class="media-fallback"><div class="media-fallback-icon" style="font-size:4.5rem;">${escapeHtml(imageSrc)}</div></div>`;
   }
@@ -2068,6 +2097,7 @@ function renderMediaTag(imageSrc, altText, isPhoto) {
 }
 
 function renderPlayQuestion(qIdx, direction) {
+  stopTimer();
   const round = roundsData[activeRoundIndex];
   if (!round || !round.questions || round.questions.length === 0) {
     document.getElementById('playCardWrapper').innerHTML = '<div class="card"><p>No questions in this round. Go back to Edit mode!</p></div>';
@@ -2082,14 +2112,14 @@ function renderPlayQuestion(qIdx, direction) {
   const q = round.questions[qIdx];
   const total = round.questions.length;
 
-  // Step Tracker for Round 3 (or any round that defines Personality/Sport sections)
+  // Step Tracker for Round 3 (Personalities & Sports)
   const stepTrackerWrap = document.getElementById('playStepTracker');
   if (round.id === 'round-3' || (round.questions.some(item => item.section === 'Personality') && round.questions.some(item => item.section === 'Sport'))) {
     stepTrackerWrap.style.display = 'block';
     const isSportSection = (q.section === 'Sport' || q.type === 'sport');
     stepTrackerWrap.innerHTML = `
       <div class="step-tracker-container" style="margin-bottom:12px;">
-        <div class="step-node done">1. Welcome</div>
+        <div class="step-node done">1. Intro</div>
         <span class="step-arrow">➔</span>
         <div class="step-node ${isSportSection ? 'done' : 'active'}">2. Personality</div>
         <span class="step-arrow">➔</span>
@@ -2102,8 +2132,10 @@ function renderPlayQuestion(qIdx, direction) {
     stepTrackerWrap.style.display = 'none';
   }
 
-  // Progress Bar & Meta (Uses exact real count total)
-  document.getElementById('progressLabel').textContent = `Question ${qIdx + 1} of ${total}`;
+  // Progress Bar & Meta
+  const isRapidSet = (q.type === 'rapid_set');
+  const labelText = isRapidSet ? `Set ${qIdx + 1} of ${total} (${q.section || 'Team'})` : `Question ${qIdx + 1} of ${total}`;
+  document.getElementById('progressLabel').textContent = labelText;
   document.getElementById('progressRoundTag').textContent = `Round ${activeRoundIndex + 1}: ${round.name}`;
   document.getElementById('progressFill').style.width = `${((qIdx + 1) / total) * 100}%`;
 
@@ -2120,7 +2152,7 @@ function renderPlayQuestion(qIdx, direction) {
   cc.id = 'confettiCont';
   card.appendChild(cc);
 
-  // Chips Row
+  // Top Chips Row
   const chipsRow = document.createElement('div');
   chipsRow.className = 'chips-row';
 
@@ -2135,93 +2167,137 @@ function renderPlayQuestion(qIdx, direction) {
     sChip.textContent = q.section;
     chipsRow.appendChild(sChip);
   }
+
+  // Timer widget for Rapid Fire
+  if (isRapidSet) {
+    const timerWidget = document.createElement('div');
+    timerWidget.className = 'timer-widget';
+    timerWidget.id = 'timerWidget';
+    timerWidget.innerHTML = `
+      <span>⏱️</span>
+      <span class="timer-display" id="timerDisplay">1:00</span>
+      <button class="timer-btn" id="timerToggleBtn" onclick="toggleTimer()">▶ Start</button>
+      <button class="timer-btn" onclick="resetTimer(60)">🔄</button>
+    `;
+    chipsRow.appendChild(timerWidget);
+  }
+
   card.appendChild(chipsRow);
 
-  // Per-Question Rules Alert (if present)
+  // Per-Question Rules / Alert
   if (q.rules) {
     const qRuleBox = document.createElement('div');
     qRuleBox.className = 'open-prompt-box';
     qRuleBox.style.background = '#fffbeb';
     qRuleBox.style.borderColor = '#fde68a';
     qRuleBox.style.color = '#92400e';
+    qRuleBox.style.padding = '10px 18px';
+    qRuleBox.style.borderRadius = '14px';
+    qRuleBox.style.border = '1.5px solid #fde68a';
+    qRuleBox.style.fontWeight = '600';
     qRuleBox.innerHTML = `<span>💡</span> <span>${escapeHtml(q.rules)}</span>`;
     card.appendChild(qRuleBox);
   }
 
-  // Visual Image Media
-  const isImageType = (q.type === 'image' || q.type === 'personality' || q.type === 'sport');
-  if (isImageType || (q.image && (q.image.includes('/') || q.image.includes('.') || q.image.startsWith('data:')))) {
-    const mediaWrap = document.createElement('div');
-    mediaWrap.className = 'media-wrap';
-    mediaWrap.id = 'mediaWrap';
-    const isPhoto = (q.section === 'Personality' || q.section === 'Sport' || q.type === 'personality' || q.type === 'sport');
-    mediaWrap.innerHTML = renderMediaTag(q.image, q.answer, isPhoto);
-    card.appendChild(mediaWrap);
-  }
+  // ── SPECIAL RENDERING: Rapid Fire 4-Question Set ──
+  if (isRapidSet) {
+    const titleEl = document.createElement('h2');
+    titleEl.className = 'question-title';
+    titleEl.textContent = q.title || `${q.section || 'Team'} Rapid Fire (4 Questions)`;
+    card.appendChild(titleEl);
 
-  // Question Text
-  if (q.question && q.question.trim().length > 0) {
-    const qTitle = document.createElement('h2');
-    qTitle.className = 'question-title';
-    qTitle.textContent = q.question;
-    card.appendChild(qTitle);
-  }
+    const rapidGrid = document.createElement('div');
+    rapidGrid.className = 'rapid-fire-grid';
+    rapidGrid.id = 'rapidFireGrid';
 
-  // Options (for MCQ) or Open prompt
-  const hasOptions = Array.isArray(q.options) && q.options.length > 0;
-  if (hasOptions) {
-    const optContainer = document.createElement('div');
-    optContainer.className = `options-container ${q.options.length === 4 ? 'has-four' : ''}`;
-    const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-    q.options.forEach((opt, optIdx) => {
-      const optEl = document.createElement('div');
-      optEl.className = 'option-item';
-      optEl.setAttribute('data-option-text', opt);
-      optEl.innerHTML = `
-        <div class="option-letter">${letters[optIdx] || (optIdx + 1)}</div>
-        <div class="option-text">${escapeHtml(opt)}</div>
+    (q.items || []).forEach((item, itemIdx) => {
+      const itemCard = document.createElement('div');
+      itemCard.className = 'rapid-item-card';
+      itemCard.id = `rapidItem_${itemIdx}`;
+      itemCard.innerHTML = `
+        <div class="rapid-item-header">
+          <div class="rapid-q-num">${itemIdx + 1}</div>
+          <div style="flex:1;">${escapeHtml(item.q)}</div>
+        </div>
+        <div class="rapid-ans-box" id="rapidAns_${itemIdx}" style="display:none;">
+          <div class="rapid-ans-label">✓ Answer:</div>
+          <div class="rapid-ans-text">${escapeHtml(item.a)}</div>
+        </div>
       `;
-      optContainer.appendChild(optEl);
+      rapidGrid.appendChild(itemCard);
     });
-    card.appendChild(optContainer);
-  } else if (q.type === 'open') {
-    const promptBox = document.createElement('div');
-    promptBox.className = 'open-prompt-box';
-    promptBox.innerHTML = `<span>⚡</span> <span>Open Question • Name the answer!</span>`;
-    card.appendChild(promptBox);
+    card.appendChild(rapidGrid);
+
+  } else {
+    // ── STANDARD RENDERING: Single Question (MCQ / Photo / Clue) ──
+    const isImageType = (q.type === 'image' || q.type === 'personality' || q.type === 'sport');
+    if (isImageType || (q.image && (q.image.includes('/') || q.image.includes('.') || q.image.startsWith('data:')))) {
+      const mediaWrap = document.createElement('div');
+      mediaWrap.className = 'media-wrap';
+      mediaWrap.id = 'mediaWrap';
+      const isPhoto = (q.section === 'Personality' || q.section === 'Sport' || q.type === 'personality' || q.type === 'sport');
+      mediaWrap.innerHTML = renderMediaTag(q.image, q.answer, isPhoto);
+      card.appendChild(mediaWrap);
+    }
+
+    if (q.question && q.question.trim().length > 0) {
+      const qTitle = document.createElement('h2');
+      qTitle.className = 'question-title';
+      qTitle.textContent = q.question;
+      card.appendChild(qTitle);
+    }
+
+    // MCQ Options
+    const hasOptions = Array.isArray(q.options) && q.options.length > 0;
+    if (hasOptions) {
+      const optContainer = document.createElement('div');
+      optContainer.className = `options-container ${q.options.length === 4 ? 'has-four' : ''}`;
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+      q.options.forEach((opt, optIdx) => {
+        const optEl = document.createElement('div');
+        optEl.className = 'option-item';
+        optEl.setAttribute('data-option-text', opt);
+        optEl.innerHTML = `
+          <div class="option-letter">${letters[optIdx] || (optIdx + 1)}</div>
+          <div class="option-text">${escapeHtml(opt)}</div>
+        `;
+        optContainer.appendChild(optEl);
+      });
+      card.appendChild(optContainer);
+    }
+
+    // Single Answer Reveal Box
+    const ansCont = document.createElement('div');
+    ansCont.className = 'answer-container';
+
+    const hiddenHint = document.createElement('div');
+    hiddenHint.className = 'answer-hidden-hint';
+    hiddenHint.id = 'ansHiddenHint';
+    hiddenHint.innerHTML = `<span>🔒</span> <span>? ? ?</span>`;
+    ansCont.appendChild(hiddenHint);
+
+    const revealedBox = document.createElement('div');
+    revealedBox.className = 'answer-revealed-box';
+    revealedBox.id = 'ansRevealedBox';
+
+    let ansIconHtml = '';
+    if (q.image && !q.image.includes('/') && !q.image.includes('.') && !q.image.startsWith('data:')) {
+      ansIconHtml = `<div class="answer-circle-icon">${escapeHtml(q.image)}</div>`;
+    }
+
+    revealedBox.innerHTML = `
+      <div class="answer-badge-tag">✓ Correct Answer</div>
+      <div class="answer-content-row">
+        ${ansIconHtml}
+        <div class="answer-text">${escapeHtml(q.answer || 'Answer')}</div>
+      </div>
+    `;
+    ansCont.appendChild(revealedBox);
+    card.appendChild(ansCont);
   }
 
-  // Answer Section (Hidden by default)
-  const ansCont = document.createElement('div');
-  ansCont.className = 'answer-container';
-
-  const hiddenHint = document.createElement('div');
-  hiddenHint.className = 'answer-hidden-hint';
-  hiddenHint.id = 'ansHiddenHint';
-  hiddenHint.innerHTML = `<span>🔒</span> <span>? ? ?</span>`;
-  ansCont.appendChild(hiddenHint);
-
-  const revealedBox = document.createElement('div');
-  revealedBox.className = 'answer-revealed-box';
-  revealedBox.id = 'ansRevealedBox';
-
-  let ansIconHtml = '';
-  if (q.image && !q.image.includes('/') && !q.image.includes('.') && !q.image.startsWith('data:')) {
-    ansIconHtml = `<div class="answer-circle-icon">${escapeHtml(q.image)}</div>`;
-  }
-
-  revealedBox.innerHTML = `
-    <div class="answer-badge-tag">✓ Correct Answer</div>
-    <div class="answer-content-row">
-      ${ansIconHtml}
-      <div class="answer-text">${escapeHtml(q.answer || 'Answer')}</div>
-    </div>
-  `;
-  ansCont.appendChild(revealedBox);
-  card.appendChild(ansCont);
-
-  // Buttons Row
+  // Action Buttons Row
   const btnRow = document.createElement('div');
   btnRow.className = 'btn-row';
 
@@ -2237,7 +2313,7 @@ function renderPlayQuestion(qIdx, direction) {
   const mainBtn = document.createElement('button');
   mainBtn.className = 'btn btn-primary';
   mainBtn.id = 'playMainBtn';
-  mainBtn.innerHTML = `👁️ Reveal Answer`;
+  mainBtn.innerHTML = isRapidSet ? `👁️ Reveal Answers Slide` : `👁️ Reveal Answer`;
   mainBtn.setAttribute('aria-label', 'Reveal answer');
   mainBtn.addEventListener('click', handleMainAdvance);
   btnRow.appendChild(mainBtn);
@@ -2250,6 +2326,59 @@ function renderPlayQuestion(qIdx, direction) {
   card.appendChild(hintDiv);
 
   wrapper.appendChild(card);
+}
+
+// ── Timer Logic for Rapid Fire ──────────────────────────────
+function toggleTimer() {
+  if (timerRunning) {
+    stopTimer();
+  } else {
+    startTimer();
+  }
+}
+
+function startTimer() {
+  stopTimer();
+  timerRunning = true;
+  const btn = document.getElementById('timerToggleBtn');
+  if (btn) btn.textContent = '⏸ Pause';
+
+  timerInterval = setInterval(() => {
+    if (timerSeconds > 0) {
+      timerSeconds--;
+      updateTimerDisplay();
+    } else {
+      stopTimer();
+      showToast("⏰ Time's up!");
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = null;
+  timerRunning = false;
+  const btn = document.getElementById('timerToggleBtn');
+  if (btn) btn.textContent = '▶ Start';
+}
+
+function resetTimer(secs = 60) {
+  stopTimer();
+  timerSeconds = secs;
+  updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timerDisplay');
+  if (!el) return;
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  el.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+  if (timerSeconds <= 10) {
+    el.style.color = '#dc2626';
+  } else {
+    el.style.color = '#e11d48';
+  }
 }
 
 // ── Question Reveal Action ──────────────────────────────────
@@ -2270,7 +2399,17 @@ function doRevealQuestion() {
   if (mediaWrap) mediaWrap.classList.add('glowing');
   if (card) card.classList.add('neon-glow');
 
-  // Highlight correct option if MCQ
+  // Rapid Fire Answers Reveal
+  if (q.type === 'rapid_set' && Array.isArray(q.items)) {
+    q.items.forEach((_, idx) => {
+      const box = document.getElementById(`rapidAns_${idx}`);
+      if (box) {
+        box.style.display = 'flex';
+      }
+    });
+  }
+
+  // MCQ Options Highlight
   if (Array.isArray(q.options) && q.options.length > 0) {
     const optItems = document.querySelectorAll('.option-item');
     const targetAns = (q.answer || '').trim().toLowerCase();
@@ -2295,7 +2434,7 @@ function doRevealQuestion() {
     if (isLast) {
       mainBtn.innerHTML = (round.id === 'round-3') ? `🎉 View Recap` : `🎉 See Results`;
     } else {
-      mainBtn.innerHTML = `Next Question ➔`;
+      mainBtn.innerHTML = (q.type === 'rapid_set') ? `Next Team ➔` : `Next Question ➔`;
     }
   }
 }
@@ -2372,7 +2511,7 @@ function renderRecapScreen() {
   const sports = (round.questions || []).filter(q => q.section === 'Sport' || q.type === 'sport');
 
   function renderRecapItems(items) {
-    return items.map((it, idx) => `
+    return items.map(it => `
       <div class="recap-item-row">
         <div class="recap-thumb">
           ${renderMediaTag(it.image, it.answer, true)}
@@ -2404,7 +2543,7 @@ function renderRecapScreen() {
     </div>
   `;
 
-  // Check if All Rounds mode has another round
+  // Next Round Button in All Rounds Mode
   const nextBtn = document.getElementById('recapNextBtn');
   if (isAllRoundsMode && activeRoundIndex < roundsData.length - 1) {
     nextBtn.style.display = 'inline-flex';
@@ -2422,7 +2561,7 @@ function renderRecapScreen() {
 function renderEndScreen() {
   const round = roundsData[activeRoundIndex];
   document.getElementById('endTitle').textContent = `Round ${activeRoundIndex + 1} Complete!`;
-  document.getElementById('endSubtitle').textContent = `Great game! You finished all ${round ? round.questions.length : 0} questions in ${round ? round.name : 'this round'}.`;
+  document.getElementById('endSubtitle').textContent = `Great game! You finished all questions in ${round ? round.name : 'this round'}.`;
 
   const nextBtn = document.getElementById('endNextRoundBtn');
   if (isAllRoundsMode && activeRoundIndex < roundsData.length - 1) {
@@ -2475,15 +2614,24 @@ function renderEditMode() {
     card.className = 'edit-q-card';
     card.id = `editCard_${qIdx}`;
 
+    const isRapid = (q.type === 'rapid_set');
     const optLines = Array.isArray(q.options) ? q.options.join('\n') : '';
-    const isUnclear = (q.answer === 'Unnamed' || q.rules.includes('Unnamed'));
+
+    let rapidItemsHtml = '';
+    if (isRapid && Array.isArray(q.items)) {
+      rapidItemsHtml = `
+        <div class="form-group" style="background:#f1f5f9; padding:12px; border-radius:14px;">
+          <label class="form-label">4 Rapid Fire Questions & Answers (Format: Question | Answer)</label>
+          <textarea class="form-textarea" id="eq_rapid_${qIdx}" rows="5">${escapeHtml(q.items.map(it => `${it.q} | ${it.a}`).join('\n'))}</textarea>
+        </div>
+      `;
+    }
 
     card.innerHTML = `
       <div class="edit-q-card-header">
         <div style="font-weight:700; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
           <span>#${qIdx + 1}</span>
           <span style="font-size:0.9rem; font-weight:600; color:var(--text-mid);">${escapeHtml(q.section || 'General')}</span>
-          ${isUnclear ? `<span class="warning-badge">⚠️ Unnamed Item</span>` : ''}
         </div>
         <div style="display:flex; gap:6px;">
           <button class="btn btn-secondary" style="padding:4px 10px; font-size:0.8rem;" onclick="moveQuestion(${qIdx}, -1)" ${qIdx === 0 ? 'disabled' : ''}>⬆️</button>
@@ -2494,58 +2642,55 @@ function renderEditMode() {
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Question Type</label>
-          <select class="form-select" id="eq_type_${qIdx}">
-            <option value="personality" ${q.type === 'personality' ? 'selected' : ''}>Sports Personality</option>
-            <option value="sport" ${q.type === 'sport' ? 'selected' : ''}>Sport Discipline</option>
-            <option value="image" ${q.type === 'image' ? 'selected' : ''}>Image / Rebus Clue</option>
+          <label class="form-label">Item Type</label>
+          <select class="form-select" id="eq_type_${qIdx}" onchange="syncCurrentEditForm(); renderEditMode();">
             <option value="mcq" ${q.type === 'mcq' ? 'selected' : ''}>Multiple Choice (MCQ)</option>
-            <option value="open" ${q.type === 'open' ? 'selected' : ''}>Open Question (Rapid Fire / Legends)</option>
+            <option value="rapid_set" ${q.type === 'rapid_set' ? 'selected' : ''}>Rapid Fire 4-Question Set</option>
+            <option value="personality" ${q.type === 'personality' ? 'selected' : ''}>Sports Personality Photo</option>
+            <option value="sport" ${q.type === 'sport' ? 'selected' : ''}>Sport Discipline Photo</option>
+            <option value="image" ${q.type === 'image' ? 'selected' : ''}>Visual Clue</option>
           </select>
         </div>
         <div class="form-group">
           <label class="form-label">Section Tag</label>
-          <input type="text" class="form-input" id="eq_section_${qIdx}" value="${escapeHtml(q.section || '')}" placeholder="e.g. Personality, Sport, Team A, Rapid Fire" />
+          <input type="text" class="form-input" id="eq_section_${qIdx}" value="${escapeHtml(q.section || '')}" placeholder="e.g. Team A, Personality, Sport, Buzzer" />
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Question Text (Optional for photo/rebus identification)</label>
-        <textarea class="form-textarea" id="eq_question_${qIdx}" rows="2">${escapeHtml(q.question || '')}</textarea>
-      </div>
+      ${isRapid ? rapidItemsHtml : `
+        <div class="form-group">
+          <label class="form-label">Question Text</label>
+          <textarea class="form-textarea" id="eq_question_${qIdx}" rows="2">${escapeHtml(q.question || '')}</textarea>
+        </div>
 
-      <div class="form-group">
-        <label class="form-label">Image Source / Emoji</label>
-        <div style="display:flex; gap:10px; align-items:center;">
-          <div class="image-preview-box" id="eq_img_prev_${qIdx}">
-            ${renderMediaTag(q.image, q.answer, true)}
-          </div>
-          <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
-            <input type="text" class="form-input" id="eq_image_${qIdx}" value="${escapeHtml(q.image || '')}" placeholder="images/p1.jpg, 🏃‍♀️ or paste data URL" oninput="updateEditThumb(${qIdx})" />
-            <div style="display:flex; gap:8px; align-items:center;">
-              <label class="btn btn-secondary" style="padding:4px 12px; font-size:0.8rem; cursor:pointer;">
-                📁 Upload Image File
-                <input type="file" accept="image/*" style="display:none;" onchange="handleImageFileUpload(event, ${qIdx})" />
-              </label>
+        <div class="form-group">
+          <label class="form-label">Image Source / Emoji</label>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <div class="image-preview-box" id="eq_img_prev_${qIdx}">
+              ${renderMediaTag(q.image, q.answer, true)}
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:6px;">
+              <input type="text" class="form-input" id="eq_image_${qIdx}" value="${escapeHtml(q.image || '')}" placeholder="images/p1.jpg, 🏃‍♀️ or paste data URL" oninput="updateEditThumb(${qIdx})" />
+              <div style="display:flex; gap:8px; align-items:center;">
+                <label class="btn btn-secondary" style="padding:4px 12px; font-size:0.8rem; cursor:pointer;">
+                  📁 Upload Image File
+                  <input type="file" accept="image/*" style="display:none;" onchange="handleImageFileUpload(event, ${qIdx})" />
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label class="form-label">Options (One per line — leave blank for image/open questions)</label>
-        <textarea class="form-textarea" id="eq_options_${qIdx}" rows="3" placeholder="Option A&#10;Option B&#10;Option C&#10;Option D">${escapeHtml(optLines)}</textarea>
-      </div>
+        <div class="form-group">
+          <label class="form-label">Options (One per line — leave blank for photo/open questions)</label>
+          <textarea class="form-textarea" id="eq_options_${qIdx}" rows="3" placeholder="Option A&#10;Option B&#10;Option C&#10;Option D">${escapeHtml(optLines)}</textarea>
+        </div>
 
-      <div class="form-group">
-        <label class="form-label">Correct Answer Name</label>
-        <input type="text" class="form-input" id="eq_answer_${qIdx}" value="${escapeHtml(q.answer || '')}" />
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Per-Question Rule / Clue Hint (Optional)</label>
-        <input type="text" class="form-input" id="eq_rules_${qIdx}" value="${escapeHtml(q.rules || '')}" placeholder="Optional alert shown before this question" />
-      </div>
+        <div class="form-group">
+          <label class="form-label">Correct Answer</label>
+          <input type="text" class="form-input" id="eq_answer_${qIdx}" value="${escapeHtml(q.answer || '')}" />
+        </div>
+      `}
     `;
     qContainer.appendChild(card);
   });
@@ -2568,7 +2713,7 @@ function handleImageFileUpload(e, qIdx) {
     const dataUrl = evt.target.result;
     document.getElementById(`eq_image_${qIdx}`).value = dataUrl;
     updateEditThumb(qIdx);
-    showToast('Image uploaded as Data URL!');
+    showToast('Image uploaded!');
   };
   reader.readAsDataURL(file);
 }
@@ -2582,31 +2727,55 @@ function syncCurrentEditForm() {
   round.rules = (document.getElementById('editRoundRules').value || '').trim();
 
   const updatedQuestions = [];
-  (round.questions || []).forEach((_, qIdx) => {
-    const typeEl    = document.getElementById(`eq_type_${qIdx}`);
-    const secEl     = document.getElementById(`eq_section_${qIdx}`);
-    const qEl       = document.getElementById(`eq_question_${qIdx}`);
-    const imgEl     = document.getElementById(`eq_image_${qIdx}`);
-    const optEl     = document.getElementById(`eq_options_${qIdx}`);
-    const ansEl     = document.getElementById(`eq_answer_${qIdx}`);
-    const ruleEl    = document.getElementById(`eq_rules_${qIdx}`);
+  (round.questions || []).forEach((q, qIdx) => {
+    const typeEl = document.getElementById(`eq_type_${qIdx}`);
+    const secEl = document.getElementById(`eq_section_${qIdx}`);
+    if (!typeEl) {
+      updatedQuestions.push(q);
+      return;
+    }
 
-    if (!typeEl) return;
+    const type = typeEl.value;
+    const section = secEl ? secEl.value.trim() : '';
 
-    const rawOpts = (optEl.value || '')
-      .split('\n')
-      .map(s => s.trim())
-      .filter(s => s.length > 0);
+    if (type === 'rapid_set') {
+      const rapidEl = document.getElementById(`eq_rapid_${qIdx}`);
+      let items = q.items || [];
+      if (rapidEl) {
+        items = rapidEl.value.split('\n').filter(l => l.includes('|')).map(line => {
+          const parts = line.split('|');
+          return { q: parts[0].trim(), a: parts[1].trim() };
+        });
+      }
+      updatedQuestions.push({
+        type: 'rapid_set',
+        section: section || 'Team A',
+        title: `${section || 'Team'} Rapid Fire Set`,
+        image: '⚡',
+        rules: '1 Minute on the clock! Answer 4 rapid fire questions:',
+        items: items
+      });
+    } else {
+      const qEl   = document.getElementById(`eq_question_${qIdx}`);
+      const imgEl = document.getElementById(`eq_image_${qIdx}`);
+      const optEl = document.getElementById(`eq_options_${qIdx}`);
+      const ansEl = document.getElementById(`eq_answer_${qIdx}`);
 
-    updatedQuestions.push({
-      type: typeEl.value,
-      section: secEl.value.trim(),
-      question: qEl.value.trim(),
-      image: imgEl.value.trim(),
-      options: rawOpts,
-      answer: ansEl.value.trim(),
-      rules: ruleEl.value.trim()
-    });
+      const rawOpts = (optEl ? optEl.value : '')
+        .split('\n')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+      updatedQuestions.push({
+        type: type,
+        section: section,
+        question: qEl ? qEl.value.trim() : '',
+        image: imgEl ? imgEl.value.trim() : '',
+        options: rawOpts,
+        answer: ansEl ? ansEl.value.trim() : '',
+        rules: ''
+      });
+    }
   });
 
   round.questions = updatedQuestions;
@@ -2625,7 +2794,7 @@ function moveQuestion(idx, delta) {
 }
 
 function deleteQuestion(idx) {
-  if (!confirm(`Delete question #${idx + 1}?`)) return;
+  if (!confirm(`Delete item #${idx + 1}?`)) return;
   syncCurrentEditForm();
   const round = roundsData[selectedEditRoundIndex];
   round.questions.splice(idx, 1);
@@ -2637,12 +2806,12 @@ function addNewQuestion() {
   syncCurrentEditForm();
   const round = roundsData[selectedEditRoundIndex];
   round.questions.push({
-    type: "personality",
-    section: "Personality",
-    question: "Name this legendary sports personality:",
+    type: "mcq",
+    section: "Team A",
+    question: "New Question Text?",
     image: "🏆",
-    options: [],
-    answer: "Athlete Name",
+    options: ["Option A", "Option B", "Option C", "Option D"],
+    answer: "Option A",
     rules: ""
   });
   saveRoundsData(roundsData);
@@ -2661,11 +2830,12 @@ function addNewRound() {
     id: newId,
     name: "New Custom Round",
     icon: "🌟",
-    rules: "Rules for this new custom round.",
+    badge: "Custom Questions",
+    rules: "Total number of questions - 8\nTime limit - 30 seconds\nFor each correct answer - 10 points",
     questions: [
       {
         type: "mcq",
-        section: "Round 1",
+        section: "Team A",
         question: "Sample Question?",
         image: "🎯",
         options: ["Choice A", "Choice B"],
@@ -2693,7 +2863,7 @@ function deleteCurrentRound() {
 }
 
 function resetAllToDefaults() {
-  if (!confirm('Reset entire Quiz Arena to default questions and rounds? Any custom changes will be overwritten.')) return;
+  if (!confirm('Reset entire Quiz Arena to default 4 rounds and questions? Any custom changes will be overwritten.')) return;
   roundsData = JSON.parse(JSON.stringify(DEFAULT_ROUNDS));
   saveRoundsData(roundsData);
   selectedEditRoundIndex = 0;
