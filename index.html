@@ -220,6 +220,34 @@
       pointer-events: none;
     }
 
+    /* Bottom Previous Button & In-Card Ghost Controls (high visibility on white card) */
+    .btn-prev,
+    .card .btn-ghost {
+      background: #f1f5f9;
+      color: var(--text-dark);
+      border: 2px solid #cbd5e1;
+      backdrop-filter: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+    .btn-prev:hover:not(:disabled),
+    .card .btn-ghost:hover:not(:disabled) {
+      background: #e2e8f0;
+      color: #0f172a;
+      border-color: #94a3b8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+    .btn-prev:disabled,
+    .card .btn-ghost:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: none;
+      background: #f8fafc;
+      color: #64748b;
+      border-color: #cbd5e1;
+      box-shadow: none;
+    }
+
     /* ── Progress Bar & Meta ── */
     .progress-wrap {
       width: 100%;
@@ -2796,7 +2824,7 @@ function renderPlayQuestion(qIdx, direction) {
   btnRow.className = 'btn-row';
 
   const prevBtn = document.createElement('button');
-  prevBtn.className = 'btn btn-ghost';
+  prevBtn.className = 'btn btn-prev';
   prevBtn.id = 'playPrevBtn';
   prevBtn.innerHTML = `← Previous`;
   prevBtn.setAttribute('aria-label', 'Previous question');
@@ -3655,10 +3683,32 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
+function isRound2or3(roundIdx) {
+  if (roundIdx === undefined || roundIdx === null) roundIdx = activeRoundIndex;
+  const round = roundsData[roundIdx];
+  if (!round) return false;
+  if (round.id === 'round-2' || round.id === 'round-3' || roundIdx === 1 || roundIdx === 2) return true;
+  const name = (round.name || '').toLowerCase();
+  return name.includes('rapid fire') || name.includes('personality');
+}
+
 // ── Keyboard Shortcuts ──────────────────────────────────────
 document.addEventListener('keydown', function(e) {
+  // If typing in input or textarea, don't trigger shortcuts
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+    return;
+  }
+
   if (currentView === 'play') {
-    if (e.code === 'Space' || e.code === 'ArrowRight' || e.code === 'Enter') {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      // Round 2 and Round 3 do NOT change by space bar
+      if (!isRound2or3(activeRoundIndex)) {
+        handleMainAdvance();
+      }
+      return;
+    }
+    if (e.code === 'ArrowRight' || e.code === 'Enter') {
       e.preventDefault();
       handleMainAdvance();
       return;
@@ -3678,8 +3728,34 @@ document.addEventListener('keydown', function(e) {
       switchView('home');
       return;
     }
-  } else if (currentView === 'rules' && e.code === 'Escape') {
-    switchView('home');
+  } else if (currentView === 'rules') {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (!isRound2or3(activeRoundIndex)) {
+        const startBtn = document.getElementById('rulesStartBtn');
+        if (startBtn) startBtn.click();
+      }
+      return;
+    }
+    if (e.code === 'Escape') {
+      switchView('home');
+      return;
+    }
+  } else if (currentView === 'end') {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (!isRound2or3(activeRoundIndex)) {
+        const nextBtn = document.getElementById('endNextRoundBtn');
+        if (nextBtn && nextBtn.style.display !== 'none') {
+          nextBtn.click();
+        }
+      }
+      return;
+    }
+    if (e.code === 'Escape') {
+      switchView('home');
+      return;
+    }
   }
 });
 
