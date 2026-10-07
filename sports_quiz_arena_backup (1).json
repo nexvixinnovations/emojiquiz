@@ -1,0 +1,651 @@
+[
+  {
+    "id": "round-1",
+    "name": "General Round",
+    "icon": "🏆",
+    "badge": "12 Questions • +10 Points",
+    "rules": "Total number of questions – 12\nEach team will get 3 questions.\nFor Each correct Answer - 10 Points.\nTime limit - 30 seconds.\nNo negative marks.\nNo pass questions.\nFirst response is considered.",
+    "questions": [
+      {
+        "type": "mcq",
+        "section": "Team A",
+        "question": "What is the name of the autobiography of P.T. Usha?",
+        "image": "🏃‍♀️",
+        "options": [
+          "Playing to Win",
+          "Unbreakable",
+          "Golden Girl",
+          "Ace Against Odds"
+        ],
+        "answer": "Golden Girl",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team B",
+        "question": "In which sport has India won 8 gold medals in the Olympic Games?",
+        "image": "🏑",
+        "options": [
+          "Wrestling",
+          "Shooting",
+          "Weightlifting",
+          "Field Hockey"
+        ],
+        "answer": "Field Hockey",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team C",
+        "question": "The National sport of Sri Lanka is –",
+        "image": "🏐",
+        "options": [
+          "Baseball",
+          "Volleyball",
+          "Cricket",
+          "Badminton"
+        ],
+        "answer": "Volleyball",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team D",
+        "question": "Which country is known as “the home of cricket”?",
+        "image": "🏏",
+        "options": [
+          "England",
+          "Australia",
+          "West Indies",
+          "South Africa"
+        ],
+        "answer": "England",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team A",
+        "question": "The playground of baseball is known as –",
+        "image": "⚾",
+        "options": [
+          "Court",
+          "Pitch",
+          "Ring",
+          "Diamond"
+        ],
+        "answer": "Diamond",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team B",
+        "question": "What does BWF stand for?",
+        "image": "🏸",
+        "options": [
+          "Badminton World Federation",
+          "Badminton World Foundation",
+          "Badminton World Friendship",
+          "None of the above"
+        ],
+        "answer": "Badminton World Federation",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team C",
+        "question": "Length of cricket pitch is –",
+        "image": "🏏",
+        "options": [
+          "22 yards",
+          "21 yards",
+          "20 yards",
+          "12 yards"
+        ],
+        "answer": "22 yards",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team D",
+        "question": "Which football player is known as ‘Black Pearl’?",
+        "image": "⚽",
+        "options": [
+          "Pelé",
+          "Bolt",
+          "Roosevelt",
+          "Tendulkar"
+        ],
+        "answer": "Pelé",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team A",
+        "question": "Which national cricket team is called by ‘Kangaroos’?",
+        "image": "🦘",
+        "options": [
+          "Indian Cricket Team",
+          "Sri Lanka Cricket Team",
+          "Australian Cricket Team",
+          "South African Cricket Team"
+        ],
+        "answer": "Australian Cricket Team",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team B",
+        "question": "Which is the largest cricket stadium in the world?",
+        "image": "🏟️",
+        "options": [
+          "Eden Gardens",
+          "Motera Stadium",
+          "Lord’s Cricket Ground",
+          "Melbourne Cricket Ground"
+        ],
+        "answer": "Motera Stadium",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team C",
+        "question": "Which country won the first Blind Women’s T20 World Cup?",
+        "image": "🏆",
+        "options": [
+          "Australia",
+          "Sri Lanka",
+          "Nepal",
+          "India"
+        ],
+        "answer": "India",
+        "rules": ""
+      },
+      {
+        "type": "mcq",
+        "section": "Team D",
+        "question": "What is the official national sport of China?",
+        "image": "🏓",
+        "options": [
+          "Hockey",
+          "Badminton",
+          "Cricket",
+          "Table Tennis"
+        ],
+        "answer": "Table Tennis",
+        "rules": ""
+      }
+    ]
+  },
+  {
+    "id": "round-2",
+    "name": "Rapid Fire Round",
+    "icon": "⚡",
+    "badge": "5 Lots • 1 Minute • +5 Points Each",
+    "rules": "Each team will answer 4 questions in one minute.\nEach correct answer will fetch you 5 points.\nYou can say pass to go to the next question and come back to the unanswered question / questions within the stipulated time ( 1 minute).\nNo negative marks for the wrong answer.",
+    "questions": [
+      {
+        "type": "rapid_set",
+        "section": "LOT 1",
+        "title": "LOT 1 Rapid Fire Set",
+        "image": "⚡",
+        "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
+        "items": [
+          {
+            "q": "“The World Beneath His Feet” is a biography of which player?",
+            "a": "Pullela Gopichand"
+          },
+          {
+            "q": "“Durand Cup” is associated with which game?",
+            "a": "Football"
+          },
+          {
+            "q": "The term “Googly” is associated with which game?",
+            "a": "Cricket"
+          },
+          {
+            "q": "Who is known as ‘Hitman’?",
+            "a": "Rohit Sharma"
+          }
+        ]
+      },
+      {
+        "type": "rapid_set",
+        "section": "LOT 2",
+        "title": "LOT 2 Rapid Fire Set",
+        "image": "⚡",
+        "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
+        "items": [
+          {
+            "q": "“281 And Beyond” is the autobiography of which player?",
+            "a": "VVS Laxman"
+          },
+          {
+            "q": "“Ezra Cup” is related to which game?",
+            "a": "Polo"
+          },
+          {
+            "q": "The term “Dolphin Kick” is related to which game?",
+            "a": "Swimming"
+          },
+          {
+            "q": "Who is known as ‘Run Machine’?",
+            "a": "Virat Kohli"
+          }
+        ]
+      },
+      {
+        "type": "rapid_set",
+        "section": "LOT 3",
+        "title": "LOT 3 Rapid Fire Set",
+        "image": "⚡",
+        "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
+        "items": [
+          {
+            "q": "‘Playing It My Way’ is the autobiography of which cricketer?",
+            "a": "Sachin Tendulkar"
+          },
+          {
+            "q": "“Thomas Cup” is related to which game?",
+            "a": "Badminton"
+          },
+          {
+            "q": "The term ‘double fault’ is associated with which sport?",
+            "a": "Tennis"
+          },
+          {
+            "q": "Who is known as ‘Captain Cool’?",
+            "a": "M.S. Dhoni"
+          }
+        ]
+      },
+      {
+        "type": "rapid_set",
+        "section": "LOT 4",
+        "title": "LOT 4 Rapid Fire Set",
+        "image": "⚡",
+        "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
+        "items": [
+          {
+            "q": "“Straight From The Heart” is an autobiography of which player?",
+            "a": "Kapil Dev"
+          },
+          {
+            "q": "“Stanley Cup” is related to which game?",
+            "a": "Hockey"
+          },
+          {
+            "q": "“Triples” is a new format of which game?",
+            "a": "Badminton"
+          },
+          {
+            "q": "Who is known as ‘The Wall’?",
+            "a": "Rahul Dravid"
+          }
+        ]
+      },
+      {
+        "type": "rapid_set",
+        "section": "AUDIENCE QUESTION",
+        "title": "AUDIENCE QUESTION Rapid Fire Set",
+        "image": "⚡",
+        "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
+        "items": [
+          {
+            "q": "Who is known as ‘Little Master’?",
+            "a": "Sunil Gavaskar"
+          },
+          {
+            "q": "Who is known as ‘God of Cricket’?",
+            "a": "Sachin Tendulkar"
+          },
+          {
+            "q": "Who is known as ‘Miyan Bhai’?",
+            "a": "Mohammed Siraj"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "round-3",
+    "name": "Identify the Personality & Sport",
+    "icon": "🌟",
+    "badge": "19 Questions • 30 Seconds • +10 Points",
+    "rules": "RULES :\nEach Team will get 4 questions\nFor each correct answer - 10 points.\nTime limit - 30 seconds.\nNo negative marks. No Pass questions.\nFirst response is considered.",
+    "questions": [
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/LeBron James.jpg",
+        "options": [],
+        "answer": "LeBron James / Basket ball",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/usain Bolt.jpg",
+        "options": [],
+        "answer": "Usain Bolt / Athletics (Sprinter)",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Muttiah Muralitharan.jpg",
+        "options": [],
+        "answer": "Muttiah Muralitharan /Cricket (Bowler)",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Dhanraj Pillay.jpg",
+        "options": [],
+        "answer": "Dhanraj Pillay / Hockey",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Geeta And Babita Phogat.jpg",
+        "options": [],
+        "answer": "Geeta and Babita Phogat / Wrestler",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/leander paes and mahesh bhupathi.jpg",
+        "options": [],
+        "answer": "Leander Paes and Mahesh Bhupathi / Tennis",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/serena williams and venus williams.jpg",
+        "options": [],
+        "answer": "Serena Williams and Venus Williams / Tennis",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "Personality",
+        "question": "Name this legendary sports personality:",
+        "image": "images/cristiano ronaldo and ronaldinho.webp",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Cristiano Ronaldo and Ronaldinho / Football",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify this sport from the image:",
+        "image": "images/Windsurfing.jpg",
+        "options": [],
+        "answer": "Windsurfing",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify this sport from the image:",
+        "image": "images/Netball.jpg",
+        "options": [],
+        "answer": "Netball",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify this sport from the image:",
+        "image": "images/Water Polo.jpg",
+        "options": [],
+        "answer": "Water Polo",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify this sport from the image:",
+        "image": "images/Gymnastics.jpg",
+        "options": [],
+        "answer": "Gymnastics",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/Butterfly.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Butterfly stroke",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/Breast Stroke.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Breast Stroke",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/BackStroke.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Back Stroke",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/Freestyle.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Freestyle",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "AUDIENCE",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Rani Rampal.jpg",
+        "options": [],
+        "answer": "Rani Rampal / Hockey",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "AUDIENCE",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Rafael Nadal.jpg",
+        "options": [],
+        "answer": "Rafael Nadal / Tennis",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "AUDIENCE",
+        "question": "Name this legendary sports personality:",
+        "image": "images/vaishali and praggnanandhaa.jpg",
+        "options": [],
+        "answer": "Vaishali and Praggnanandhaa / Chess",
+        "rules": ""
+      }
+    ]
+  },
+  {
+    "id": "round-4",
+    "name": "Guess The Sport",
+    "icon": "🔔",
+    "badge": "Buzzer Round • 12 Questions • +10 / -2 Points",
+    "rules": "Total number of questions in this round will be 12.\nIn this round, the team who presses the buzzer first will get a chance and get 10 points for the correct answer.\n- 2 points for the wrong answer.",
+    "questions": [
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/1.png",
+        "options": [],
+        "answer": "Archery",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/2.png",
+        "options": [],
+        "answer": "Volley Ball",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/3.png",
+        "options": [],
+        "answer": "Badminton",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/4.png",
+        "options": [],
+        "answer": "Golf",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/5.png",
+        "options": [],
+        "answer": "Tennis",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/6.png",
+        "options": [],
+        "answer": "American Football",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/7.png",
+        "options": [],
+        "answer": "Ice Hockey",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/8.png",
+        "options": [],
+        "answer": "Karate",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/9.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Formula 1",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/11.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Bowling",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/12.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Wrestling",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/13.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Triathlon",
+        "rules": ""
+      }
+    ]
+  }
+]

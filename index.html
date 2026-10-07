@@ -613,6 +613,86 @@
       color: var(--text-dark);
     }
 
+    /* ── Times Up Banner & Urgent Timer Styles ── */
+    .times-up-banner {
+      display: none;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 18px;
+      margin: 10px 0 16px;
+      box-shadow: 0 10px 25px rgba(220, 38, 38, 0.35);
+      text-align: center;
+      animation: alertPulse 1.2s infinite ease-in-out;
+    }
+    .times-up-banner.show {
+      display: block;
+    }
+    .times-up-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .times-up-bell {
+      font-size: 1.6rem;
+      display: inline-block;
+      animation: bellShake 0.6s infinite ease-in-out;
+    }
+    .times-up-subtext {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-top: 6px;
+      opacity: 0.95;
+    }
+    .times-up-subtext kbd {
+      background: rgba(255, 255, 255, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-family: inherit;
+      font-weight: 700;
+    }
+    @keyframes alertPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 10px 25px rgba(220, 38, 38, 0.35); }
+      50% { transform: scale(1.015); box-shadow: 0 14px 35px rgba(220, 38, 38, 0.55); }
+    }
+    @keyframes bellShake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-15deg); }
+      75% { transform: rotate(15deg); }
+    }
+    .timer-display.urgent {
+      color: #ef4444 !important;
+      animation: timerPulse 0.5s infinite alternate ease-in-out;
+    }
+    .timer-display.times-up {
+      color: #dc2626 !important;
+      animation: timerFlash 0.4s infinite alternate;
+    }
+    @keyframes timerPulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.15); }
+    }
+    @keyframes timerFlash {
+      from { opacity: 1; transform: scale(1.1); }
+      to { opacity: 0.4; transform: scale(1); }
+    }
+    .card.times-up-card {
+      border-color: #f87171 !important;
+      box-shadow: 0 0 35px rgba(239, 68, 68, 0.35), var(--shadow-card) !important;
+    }
+    .recap-column.col-purple { border-color: #ddd6fe; background: #faf5ff; }
+    .recap-col-header.text-purple { color: #7c3aed; }
+    @media (min-width: 900px) {
+      .recap-grid.three-col {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
     /* ── Answer Reveal Area ── */
     .answer-container {
       width: 100%;
@@ -1483,15 +1563,15 @@ const DEFAULT_ROUNDS = [
       {
         "type": "mcq",
         "section": "Team C",
-        "question": "The term ‘double fault’ is associated with which sport?",
-        "image": "🎾",
+        "question": "Length of cricket pitch is –",
+        "image": "🏏",
         "options": [
-          "Chess",
-          "Rugby",
-          "Tennis",
-          "Basketball"
+          "22 yards",
+          "21 yards",
+          "20 yards",
+          "12 yards"
         ],
-        "answer": "Tennis",
+        "answer": "22 yards",
         "rules": ""
       },
       {
@@ -1570,13 +1650,13 @@ const DEFAULT_ROUNDS = [
     "id": "round-2",
     "name": "Rapid Fire Round",
     "icon": "⚡",
-    "badge": "4 Questions Per Team • 1 Minute • +5 Points Each",
+    "badge": "5 Lots • 1 Minute • +5 Points Each",
     "rules": "Each team will answer 4 questions in one minute.\nEach correct answer will fetch you 5 points.\nYou can say pass to go to the next question and come back to the unanswered question / questions within the stipulated time ( 1 minute).\nNo negative marks for the wrong answer.",
     "questions": [
       {
         "type": "rapid_set",
-        "section": "Team A",
-        "title": "Team A Rapid Fire Set",
+        "section": "LOT 1",
+        "title": "LOT 1 Rapid Fire Set",
         "image": "⚡",
         "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
         "items": [
@@ -1600,8 +1680,8 @@ const DEFAULT_ROUNDS = [
       },
       {
         "type": "rapid_set",
-        "section": "Team B",
-        "title": "Team B Rapid Fire Set",
+        "section": "LOT 2",
+        "title": "LOT 2 Rapid Fire Set",
         "image": "⚡",
         "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
         "items": [
@@ -1625,8 +1705,8 @@ const DEFAULT_ROUNDS = [
       },
       {
         "type": "rapid_set",
-        "section": "Team C",
-        "title": "Team C Rapid Fire Set",
+        "section": "LOT 3",
+        "title": "LOT 3 Rapid Fire Set",
         "image": "⚡",
         "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
         "items": [
@@ -1635,8 +1715,12 @@ const DEFAULT_ROUNDS = [
             "a": "Sachin Tendulkar"
           },
           {
-            "q": "\"Thomas cup\"  is related to which game?",
+            "q": "“Thomas Cup” is related to which game?",
             "a": "Badminton"
+          },
+          {
+            "q": "The term ‘double fault’ is associated with which sport?",
+            "a": "Tennis"
           },
           {
             "q": "Who is known as ‘Captain Cool’?",
@@ -1646,8 +1730,8 @@ const DEFAULT_ROUNDS = [
       },
       {
         "type": "rapid_set",
-        "section": "Team D",
-        "title": "Team D Rapid Fire Set",
+        "section": "LOT 4",
+        "title": "LOT 4 Rapid Fire Set",
         "image": "⚡",
         "rules": "1 Minute on the clock! Answer 4 rapid fire questions:",
         "items": [
@@ -1656,7 +1740,7 @@ const DEFAULT_ROUNDS = [
             "a": "Kapil Dev"
           },
           {
-            "q": "\"Stanley cup\" is related to which game?",
+            "q": "“Stanley Cup” is related to which game?",
             "a": "Hockey"
           },
           {
@@ -1696,8 +1780,8 @@ const DEFAULT_ROUNDS = [
     "id": "round-3",
     "name": "Identify the Personality & Sport",
     "icon": "🌟",
-    "badge": "14 Questions • +10 Points",
-    "rules": "RULES :\nEach Team will get 2 questions\nFor each correct answer - 10 points.\nTime limit - 30 seconds.\nNo negative marks. No Pass questions.\nFirst response is considered.",
+    "badge": "19 Questions • 30 Seconds • +10 Points",
+    "rules": "RULES :\nEach Team will get 4 questions\nFor each correct answer - 10 points.\nTime limit - 30 seconds.\nNo negative marks. No Pass questions.\nFirst response is considered.",
     "questions": [
       {
         "type": "personality",
@@ -1705,7 +1789,7 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/LeBron James.jpg",
         "options": [],
-        "answer": "LeBron James",
+        "answer": "LeBron James / Basket ball",
         "rules": ""
       },
       {
@@ -1714,7 +1798,7 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/usain Bolt.jpg",
         "options": [],
-        "answer": "Usain Bolt",
+        "answer": "Usain Bolt / Athletics (Sprinter)",
         "rules": ""
       },
       {
@@ -1723,7 +1807,7 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/Muttiah Muralitharan.jpg",
         "options": [],
-        "answer": "Muttiah Muralitharan",
+        "answer": "Muttiah Muralitharan /Cricket (Bowler)",
         "rules": ""
       },
       {
@@ -1732,7 +1816,7 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/Dhanraj Pillay.jpg",
         "options": [],
-        "answer": "Dhanraj Pillay",
+        "answer": "Dhanraj Pillay / Hockey",
         "rules": ""
       },
       {
@@ -1741,7 +1825,7 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/Geeta And Babita Phogat.jpg",
         "options": [],
-        "answer": "Geeta and Babita Phogat",
+        "answer": "Geeta and Babita Phogat / Wrestler",
         "rules": ""
       },
       {
@@ -1750,25 +1834,7 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/leander paes and mahesh bhupathi.jpg",
         "options": [],
-        "answer": "Leander Paes and Mahesh Bhupathi",
-        "rules": ""
-      },
-      {
-        "type": "personality",
-        "section": "Personality",
-        "question": "Name this legendary sports personality:",
-        "image": "images/Rafael Nadal.jpg",
-        "options": [],
-        "answer": "Rafael Nadal",
-        "rules": ""
-      },
-      {
-        "type": "personality",
-        "section": "Personality",
-        "question": "Name this legendary sports personality:",
-        "image": "images/Rani Rampal.jpg",
-        "options": [],
-        "answer": "Rani Rampal",
+        "answer": "Leander Paes and Mahesh Bhupathi / Tennis",
         "rules": ""
       },
       {
@@ -1777,16 +1843,21 @@ const DEFAULT_ROUNDS = [
         "question": "Name this legendary sports personality:",
         "image": "images/serena williams and venus williams.jpg",
         "options": [],
-        "answer": "Serena Williams and Venus Williams",
+        "answer": "Serena Williams and Venus Williams / Tennis",
         "rules": ""
       },
       {
         "type": "personality",
         "section": "Personality",
         "question": "Name this legendary sports personality:",
-        "image": "images/vaishali and praggnanandhaa.jpg",
-        "options": [],
-        "answer": "Vaishali and Praggnanandhaa",
+        "image": "images/cristiano ronaldo and ronaldinho.webp",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Cristiano Ronaldo and Ronaldinho / Football",
         "rules": ""
       },
       {
@@ -1824,6 +1895,89 @@ const DEFAULT_ROUNDS = [
         "options": [],
         "answer": "Gymnastics",
         "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/Butterfly.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Butterfly stroke",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/Breast Stroke.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Breast Stroke",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/BackStroke.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Back Stroke",
+        "rules": ""
+      },
+      {
+        "type": "sport",
+        "section": "Sport",
+        "question": "Identify the Swimming Style",
+        "image": "images/Freestyle.jpeg",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Freestyle",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "AUDIENCE",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Rani Rampal.jpg",
+        "options": [],
+        "answer": "Rani Rampal / Hockey",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "AUDIENCE",
+        "question": "Name this legendary sports personality:",
+        "image": "images/Rafael Nadal.jpg",
+        "options": [],
+        "answer": "Rafael Nadal / Tennis",
+        "rules": ""
+      },
+      {
+        "type": "personality",
+        "section": "AUDIENCE",
+        "question": "Name this legendary sports personality:",
+        "image": "images/vaishali and praggnanandhaa.jpg",
+        "options": [],
+        "answer": "Vaishali and Praggnanandhaa / Chess",
+        "rules": ""
       }
     ]
   },
@@ -1831,84 +1985,141 @@ const DEFAULT_ROUNDS = [
     "id": "round-4",
     "name": "Guess The Sport",
     "icon": "🔔",
-    "badge": "Buzzer Round • 8 Questions • +10 / -2 Points",
-    "rules": "Total number of questions in this round will be 8.\nIn this round, the team who presses the buzzer first will get a chance and get 10 points for the correct answer.\n- 2 points for the wrong answer.",
+    "badge": "Buzzer Round • 12 Questions • +10 / -2 Points",
+    "rules": "Total number of questions in this round will be 12.\nIn this round, the team who presses the buzzer first will get a chance and get 10 points for the correct answer.\n- 2 points for the wrong answer.",
     "questions": [
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/1.png",
         "options": [],
         "answer": "Archery",
-        "rules": "",
-        "section": "Buzzer Round"
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/2.png",
         "options": [],
-        "answer": "Squash",
-        "rules": "",
-        "section": "Buzzer Round"
+        "answer": "Volley Ball",
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/3.png",
         "options": [],
         "answer": "Badminton",
-        "rules": "",
-        "section": "Buzzer Round"
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/4.png",
         "options": [],
-        "answer": "Football",
-        "rules": "",
-        "section": "Buzzer Round"
+        "answer": "Golf",
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/5.png",
         "options": [],
         "answer": "Tennis",
-        "rules": "",
-        "section": "Buzzer Round"
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/6.png",
         "options": [],
         "answer": "American Football",
-        "rules": "",
-        "section": "Buzzer Round"
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/7.png",
         "options": [],
         "answer": "Ice Hockey",
-        "rules": "",
-        "section": "Buzzer Round"
+        "rules": ""
       },
       {
         "type": "image",
+        "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/8.png",
         "options": [],
         "answer": "Karate",
-        "rules": "",
-        "section": "Buzzer Round"
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/9.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Formula 1",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/11.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Bowling",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/12.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Wrestling",
+        "rules": ""
+      },
+      {
+        "type": "image",
+        "section": "Buzzer Round",
+        "question": "Guess the sport from the visual clue:",
+        "image": "images/13.png",
+        "options": [
+          "Option A",
+          "Option B",
+          "Option C",
+          "Option D"
+        ],
+        "answer": "Triathlon",
+        "rules": ""
       }
     ]
   }
 ];
+
 
 // ==========================================================================
 //  NEON COLOR PALETTE (12 VIBRANT PAIRS)
@@ -1930,7 +2141,7 @@ const NEON_PALETTE = [
 
 const DEFAULT_TEAL = { c1: '#0FBFB0', c2: '#14D6C4' };
 const CONFETTI_COLORS = ['#FF4E6A', '#FFD700', '#14D6C4', '#A78BFA', '#FB923C', '#34D399', '#38BDF8'];
-const STORAGE_KEY = 'sports_quiz_arena_data_v6';
+const STORAGE_KEY = 'sports_quiz_arena_data_v7';
 
 // Working State
 let roundsData = loadRoundsData();
@@ -1944,10 +2155,6 @@ let currentNeonIndex = -1;
 let activeBgLayer = 'A';
 let selectedEditRoundIndex = 0;
 
-// Rapid fire timer state
-let timerInterval = null;
-let timerSeconds = 60;
-let timerRunning = false;
 
 // ── Persistence ─────────────────────────────────────────────
 function loadRoundsData() {
@@ -2255,20 +2462,25 @@ function renderPlayQuestion(qIdx, direction) {
   const q = round.questions[qIdx];
   const total = round.questions.length;
 
-  // Step Tracker for Round 3 (Personalities & Sports)
+  // Step Tracker for Round 3 (Personalities, Sports & Audience)
   const stepTrackerWrap = document.getElementById('playStepTracker');
   if (round.id === 'round-3' || (round.questions.some(item => item.section === 'Personality') && round.questions.some(item => item.section === 'Sport'))) {
     stepTrackerWrap.style.display = 'block';
     const isSportSection = (q.section === 'Sport' || q.type === 'sport');
+    const isAudienceSection = (q.section === 'AUDIENCE');
+    const isPersonalitySection = !isSportSection && !isAudienceSection;
+
     stepTrackerWrap.innerHTML = `
       <div class="step-tracker-container" style="margin-bottom:12px;">
         <div class="step-node done">1. Intro</div>
         <span class="step-arrow">➔</span>
-        <div class="step-node ${isSportSection ? 'done' : 'active'}">2. Personality</div>
+        <div class="step-node ${isPersonalitySection ? 'active' : (isSportSection || isAudienceSection ? 'done' : '')}">2. Personality</div>
         <span class="step-arrow">➔</span>
-        <div class="step-node ${isSportSection ? 'active' : ''}">3. Sport</div>
+        <div class="step-node ${isSportSection ? 'active' : (isAudienceSection ? 'done' : '')}">3. Sport</div>
         <span class="step-arrow">➔</span>
-        <div class="step-node">4. Done</div>
+        <div class="step-node ${isAudienceSection ? 'active' : ''}">4. Audience</div>
+        <span class="step-arrow">➔</span>
+        <div class="step-node">5. Done</div>
       </div>
     `;
   } else {
@@ -2311,16 +2523,18 @@ function renderPlayQuestion(qIdx, direction) {
     chipsRow.appendChild(sChip);
   }
 
-  // Timer widget for Rapid Fire
-  if (isRapidSet) {
+  // Timer widget for Round 2 (1 min) & Round 3 (30s)
+  const roundTimerSecs = getRoundTimerDuration(activeRoundIndex);
+  if (roundTimerSecs > 0) {
     const timerWidget = document.createElement('div');
     timerWidget.className = 'timer-widget';
     timerWidget.id = 'timerWidget';
     timerWidget.innerHTML = `
       <span>⏱️</span>
-      <span class="timer-display" id="timerDisplay">1:00</span>
-      <button class="timer-btn" id="timerToggleBtn" onclick="toggleTimer()">▶ Start</button>
-      <button class="timer-btn" onclick="resetTimer(60)">🔄</button>
+      <span class="timer-display" id="timerDisplay">${formatTimerDisplay(roundTimerSecs)}</span>
+      <button class="timer-btn" id="timerToggleBtn" onclick="toggleTimer()" title="Pause / Resume">⏸ Pause</button>
+      <button class="timer-btn" onclick="resetTimer(${roundTimerSecs}, true)" title="Reset Timer">🔄</button>
+      <button class="timer-btn" id="soundToggleBtn" onclick="toggleSound()" title="Sound On / Off">${soundEnabled ? '🔊' : '🔇'}</button>
     `;
     chipsRow.appendChild(timerWidget);
   }
@@ -2468,21 +2682,181 @@ function renderPlayQuestion(qIdx, direction) {
   hintDiv.textContent = '— Press SPACE or Right Arrow to reveal —';
   card.appendChild(hintDiv);
 
+  // Times Up Banner Container
+  const timesUpBanner = document.createElement('div');
+  timesUpBanner.className = 'times-up-banner';
+  timesUpBanner.id = 'timesUpBanner';
+  timesUpBanner.innerHTML = `
+    <div class="times-up-badge-row">
+      <span class="times-up-bell">⏰</span>
+      <span class="times-up-text">TIME'S UP!</span>
+    </div>
+    <div class="times-up-subtext">Press <kbd>SPACE</kbd> or <kbd>➔</kbd> to reveal the answer</div>
+  `;
+  card.insertBefore(timesUpBanner, card.querySelector('.btn-row'));
+
   wrapper.appendChild(card);
+
+  // Auto start timer for Round 2 and Round 3
+  if (roundTimerSecs > 0) {
+    resetTimer(roundTimerSecs, true);
+  } else {
+    stopTimer();
+  }
 }
 
-// ── Timer Logic for Rapid Fire ──────────────────────────────
-function toggleTimer() {
-  if (timerRunning) {
-    stopTimer();
+// ── Web Audio API Sound Synthesizer ─────────────────────────
+let audioCtx = null;
+let soundEnabled = true;
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioCtxClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtxClass) {
+      audioCtx = new AudioCtxClass();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume().catch(() => {});
+  }
+  return audioCtx;
+}
+
+// Ensure audio context resumes on user gesture
+['click', 'keydown', 'touchstart'].forEach(evt => {
+  window.addEventListener(evt, () => {
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume().catch(() => {});
+    }
+  }, { passive: true });
+});
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  const btn = document.getElementById('soundToggleBtn');
+  if (btn) btn.textContent = soundEnabled ? '🔊' : '🔇';
+  showToast(soundEnabled ? '🔊 Sound Enabled' : '🔇 Sound Muted');
+}
+
+// 1. Countdown beep: short crisp warning beep at 5, 4, 3, 2, 1
+function playCountdownBeep(sec) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    const freqMap = { 5: 780, 4: 840, 3: 900, 2: 960, 1: 1040 };
+    const freq = freqMap[sec] || 880;
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.32, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.13);
+  } catch (err) {
+    console.warn('Audio countdown error:', err);
+  }
+}
+
+// 2. Different Time's Up sound: punchy dual-buzz game show buzzer
+function playTimesUpSound() {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+
+    function createBuzz(startTime, duration, baseFreq) {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc1.type = 'sawtooth';
+      osc1.frequency.setValueAtTime(baseFreq, startTime);
+      osc1.frequency.linearRampToValueAtTime(baseFreq - 25, startTime + duration);
+
+      osc2.type = 'square';
+      osc2.frequency.setValueAtTime(baseFreq * 1.5, startTime);
+      osc2.frequency.linearRampToValueAtTime(baseFreq * 1.5 - 35, startTime + duration);
+
+      gain.gain.setValueAtTime(0, startTime);
+      gain.gain.linearRampToValueAtTime(0.24, startTime + 0.02);
+      gain.gain.setValueAtTime(0.24, startTime + duration - 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(startTime);
+      osc2.start(startTime);
+      osc1.stop(startTime + duration + 0.02);
+      osc2.stop(startTime + duration + 0.02);
+    }
+
+    createBuzz(now, 0.18, 175);
+    createBuzz(now + 0.24, 0.35, 155);
+  } catch (err) {
+    console.warn('Audio buzzer error:', err);
+  }
+}
+
+// ── Timer State & Controls ──────────────────────────────────
+let timerInterval = null;
+let timerSeconds = 60;
+let timerDuration = 60;
+let timerRunning = false;
+let isTimeUp = false;
+
+function getRoundTimerDuration(roundIdx) {
+  const round = roundsData[roundIdx];
+  if (!round) return 0;
+  // Round 2: 1 minute (60s) for each question
+  if (round.id === 'round-2' || roundIdx === 1) return 60;
+  // Round 3: 30 seconds for each question
+  if (round.id === 'round-3' || roundIdx === 2) return 30;
+  return 0;
+}
+
+function formatTimerDisplay(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timerDisplay');
+  if (!el) return;
+  el.textContent = formatTimerDisplay(timerSeconds);
+
+  el.classList.remove('urgent', 'times-up');
+  if (timerSeconds <= 0) {
+    el.classList.add('times-up');
+    el.style.color = '#dc2626';
+  } else if (timerSeconds <= 5) {
+    el.classList.add('urgent');
+    el.style.color = '#ef4444';
   } else {
-    startTimer();
+    el.style.color = '#e11d48';
   }
 }
 
 function startTimer() {
   stopTimer();
+  getAudioContext();
   timerRunning = true;
+  isTimeUp = false;
+
   const btn = document.getElementById('timerToggleBtn');
   if (btn) btn.textContent = '⏸ Pause';
 
@@ -2490,9 +2864,36 @@ function startTimer() {
     if (timerSeconds > 0) {
       timerSeconds--;
       updateTimerDisplay();
+
+      // Countdown beep when time reaches 5, 4, 3, 2, 1 seconds
+      if (timerSeconds <= 5 && timerSeconds >= 1) {
+        playCountdownBeep(timerSeconds);
+      }
+
+      if (timerSeconds === 0) {
+        stopTimer();
+        isTimeUp = true;
+        playTimesUpSound();
+
+        // Show Times Up banner message on question card
+        const banner = document.getElementById('timesUpBanner');
+        if (banner) banner.classList.add('show');
+        const theCard = document.getElementById('theCard');
+        if (theCard) theCard.classList.add('times-up-card');
+
+        updateTimerDisplay();
+        showToast("⏰ Time's up! Press SPACE or ➔ to reveal the answer.");
+
+        const mainBtn = document.getElementById('playMainBtn');
+        if (mainBtn && !isRevealed) {
+          const round = roundsData[activeRoundIndex];
+          const q = round && round.questions ? round.questions[activeQuestionIndex] : null;
+          const isRapid = q && q.type === 'rapid_set';
+          mainBtn.innerHTML = isRapid ? `👁️ Reveal Answers Slide` : `👁️ Reveal Answer`;
+        }
+      }
     } else {
       stopTimer();
-      showToast("⏰ Time's up!");
     }
   }, 1000);
 }
@@ -2505,22 +2906,32 @@ function stopTimer() {
   if (btn) btn.textContent = '▶ Start';
 }
 
-function resetTimer(secs = 60) {
+function resetTimer(secs = 60, autoStart = false) {
   stopTimer();
+  timerDuration = secs;
   timerSeconds = secs;
+  isTimeUp = false;
+
+  const banner = document.getElementById('timesUpBanner');
+  if (banner) banner.classList.remove('show');
+  const theCard = document.getElementById('theCard');
+  if (theCard) theCard.classList.remove('times-up-card');
+
   updateTimerDisplay();
+  if (autoStart) {
+    startTimer();
+  }
 }
 
-function updateTimerDisplay() {
-  const el = document.getElementById('timerDisplay');
-  if (!el) return;
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
-  el.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
-  if (timerSeconds <= 10) {
-    el.style.color = '#dc2626';
+function toggleTimer() {
+  if (timerRunning) {
+    stopTimer();
   } else {
-    el.style.color = '#e11d48';
+    if (timerSeconds <= 0) {
+      resetTimer(timerDuration, true);
+    } else {
+      startTimer();
+    }
   }
 }
 
@@ -2528,6 +2939,12 @@ function updateTimerDisplay() {
 function doRevealQuestion() {
   if (isRevealed) return;
   isRevealed = true;
+  stopTimer();
+
+  const timesUpEl = document.getElementById('timesUpBanner');
+  if (timesUpEl) timesUpEl.classList.remove('show');
+  const theCardEl = document.getElementById('theCard');
+  if (theCardEl) theCardEl.classList.remove('times-up-card');
 
   const round = roundsData[activeRoundIndex];
   const q = round.questions[activeQuestionIndex];
@@ -2650,8 +3067,9 @@ function renderRecapScreen() {
   const total = round.questions ? round.questions.length : 0;
   document.getElementById('recapSubtitle').textContent = `Here's a recap of all ${total} answers`;
 
-  const personalities = (round.questions || []).filter(q => q.section === 'Personality' || q.type === 'personality');
+  const personalities = (round.questions || []).filter(q => (q.section === 'Personality' || q.type === 'personality') && q.section !== 'AUDIENCE');
   const sports = (round.questions || []).filter(q => q.section === 'Sport' || q.type === 'sport');
+  const audience = (round.questions || []).filter(q => q.section === 'AUDIENCE');
 
   function renderRecapItems(items) {
     return items.map(it => `
@@ -2664,6 +3082,7 @@ function renderRecapScreen() {
     `).join('');
   }
 
+  container.className = 'recap-grid three-col';
   container.innerHTML = `
     <!-- Personality Column (Orange Header) -->
     <div class="recap-column col-orange">
@@ -2682,6 +3101,16 @@ function renderRecapScreen() {
       </div>
       <div class="recap-items-list">
         ${renderRecapItems(sports)}
+      </div>
+    </div>
+
+    <!-- Audience Column (Purple Header) -->
+    <div class="recap-column col-purple">
+      <div class="recap-col-header text-purple">
+        <span>🌟</span> <span>AUDIENCE BONUS (${audience.length})</span>
+      </div>
+      <div class="recap-items-list">
+        ${renderRecapItems(audience)}
       </div>
     </div>
   `;
