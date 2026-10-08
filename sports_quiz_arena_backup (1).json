@@ -381,12 +381,7 @@
         "section": "Personality",
         "question": "Name this legendary sports personality:",
         "image": "images/cristiano ronaldo and ronaldinho.webp",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Cristiano Ronaldo and Ronaldinho / Football",
         "rules": ""
       },
@@ -431,12 +426,7 @@
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/Butterfly.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Butterfly stroke",
         "rules": ""
       },
@@ -445,12 +435,7 @@
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/Breast Stroke.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Breast Stroke",
         "rules": ""
       },
@@ -459,12 +444,7 @@
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/BackStroke.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Back Stroke",
         "rules": ""
       },
@@ -473,12 +453,7 @@
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/Freestyle.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Freestyle",
         "rules": ""
       },
@@ -595,12 +570,7 @@
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/9.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Formula 1",
         "rules": ""
       },
@@ -609,12 +579,7 @@
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/11.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Bowling",
         "rules": ""
       },
@@ -623,12 +588,7 @@
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/12.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Wrestling",
         "rules": ""
       },
@@ -637,12 +597,7 @@
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/13.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Triathlon",
         "rules": ""
       }

@@ -2016,12 +2016,7 @@ const DEFAULT_ROUNDS = [
         "section": "Personality",
         "question": "Name this legendary sports personality:",
         "image": "images/cristiano ronaldo and ronaldinho.webp",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Cristiano Ronaldo and Ronaldinho / Football",
         "rules": ""
       },
@@ -2066,12 +2061,7 @@ const DEFAULT_ROUNDS = [
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/Butterfly.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Butterfly stroke",
         "rules": ""
       },
@@ -2080,12 +2070,7 @@ const DEFAULT_ROUNDS = [
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/Breast Stroke.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Breast Stroke",
         "rules": ""
       },
@@ -2094,12 +2079,7 @@ const DEFAULT_ROUNDS = [
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/BackStroke.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Back Stroke",
         "rules": ""
       },
@@ -2108,12 +2088,7 @@ const DEFAULT_ROUNDS = [
         "section": "Sport",
         "question": "Identify the Swimming Style",
         "image": "images/Freestyle.jpeg",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Freestyle",
         "rules": ""
       },
@@ -2230,12 +2205,7 @@ const DEFAULT_ROUNDS = [
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/9.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Formula 1",
         "rules": ""
       },
@@ -2244,12 +2214,7 @@ const DEFAULT_ROUNDS = [
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/11.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Bowling",
         "rules": ""
       },
@@ -2258,12 +2223,7 @@ const DEFAULT_ROUNDS = [
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/12.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Wrestling",
         "rules": ""
       },
@@ -2272,12 +2232,7 @@ const DEFAULT_ROUNDS = [
         "section": "Buzzer Round",
         "question": "Guess the sport from the visual clue:",
         "image": "images/13.png",
-        "options": [
-          "Option A",
-          "Option B",
-          "Option C",
-          "Option D"
-        ],
+        "options": [],
         "answer": "Triathlon",
         "rules": ""
       }
@@ -2328,6 +2283,16 @@ function loadRoundsData() {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
+        // Sanitize: ensure Round 3 and Round 4 photo/visual identification questions have empty options
+        parsed.forEach(r => {
+          if (r.id === 'round-3' || r.id === 'round-4') {
+            (r.questions || []).forEach(q => {
+              if (q.type === 'personality' || q.type === 'sport' || q.type === 'image' || r.id === 'round-3' || r.id === 'round-4') {
+                q.options = [];
+              }
+            });
+          }
+        });
         return parsed;
       }
     }
@@ -2769,8 +2734,9 @@ function renderPlayQuestion(qIdx, direction) {
       card.appendChild(qTitle);
     }
 
-    // MCQ Options
-    const hasOptions = Array.isArray(q.options) && q.options.length > 0;
+    // MCQ Options: only display options for MCQ questions, never for photo identification (sports, personalities, clues) or Round 3 & 4
+    const isPhotoOrOpenType = (round.id === 'round-3' || round.id === 'round-4' || q.type === 'personality' || q.type === 'sport' || q.type === 'image');
+    const hasOptions = !isPhotoOrOpenType && Array.isArray(q.options) && q.options.length > 0;
     if (hasOptions) {
       const optContainer = document.createElement('div');
       optContainer.className = `options-container ${q.options.length === 4 ? 'has-four' : ''}`;
@@ -3158,7 +3124,8 @@ function doRevealQuestion() {
   }
 
   // MCQ Options Highlight
-  if (Array.isArray(q.options) && q.options.length > 0) {
+  const isPhotoOrOpenType = (round.id === 'round-3' || round.id === 'round-4' || q.type === 'personality' || q.type === 'sport' || q.type === 'image');
+  if (!isPhotoOrOpenType && Array.isArray(q.options) && q.options.length > 0) {
     const optItems = document.querySelectorAll('.option-item');
     const targetAns = (q.answer || '').trim().toLowerCase();
 
@@ -3441,10 +3408,14 @@ function renderEditMode() {
           </div>
         </div>
 
+        ${(q.type === 'mcq') ? `
         <div class="form-group">
-          <label class="form-label">Options (One per line — leave blank for photo/open questions)</label>
+          <label class="form-label">Options (One per line for MCQ)</label>
           <textarea class="form-textarea" id="eq_options_${qIdx}" rows="3" placeholder="Option A&#10;Option B&#10;Option C&#10;Option D">${escapeHtml(optLines)}</textarea>
         </div>
+        ` : `
+        <input type="hidden" id="eq_options_${qIdx}" value="" />
+        `}
 
         <div class="form-group">
           <label class="form-label">Correct Answer</label>
@@ -3521,10 +3492,10 @@ function syncCurrentEditForm() {
       const optEl = document.getElementById(`eq_options_${qIdx}`);
       const ansEl = document.getElementById(`eq_answer_${qIdx}`);
 
-      const rawOpts = (optEl ? optEl.value : '')
+      const rawOpts = (type === 'mcq' && optEl) ? (optEl.value || '')
         .split('\n')
         .map(s => s.trim())
-        .filter(s => s.length > 0);
+        .filter(s => s.length > 0) : [];
 
       updatedQuestions.push({
         type: type,
