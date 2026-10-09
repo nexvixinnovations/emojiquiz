@@ -9,7 +9,7 @@
       {
         "type": "mcq",
         "section": "Team A",
-        "question": "What is the name of the autobiography of P.T. Usha?",
+        "question": "What is the name of the Autobiography of P.T. Usha?",
         "image": "🏃‍♀️",
         "options": [
           "Playing to Win",
@@ -51,7 +51,7 @@
       {
         "type": "mcq",
         "section": "Team D",
-        "question": "Which country is known as “the home of cricket”?",
+        "question": "Which country is known as “The Home of Cricket”?",
         "image": "🏏",
         "options": [
           "England",
@@ -65,7 +65,7 @@
       {
         "type": "mcq",
         "section": "Team A",
-        "question": "The playground of baseball is known as –",
+        "question": "The playground of Baseball is known as –",
         "image": "⚾",
         "options": [
           "Court",
@@ -93,7 +93,7 @@
       {
         "type": "mcq",
         "section": "Team C",
-        "question": "Length of cricket pitch is –",
+        "question": "The Length of the cricket pitch is –",
         "image": "🏏",
         "options": [
           "22 yards",
@@ -107,13 +107,13 @@
       {
         "type": "mcq",
         "section": "Team D",
-        "question": "Which football player is known as ‘Black Pearl’?",
+        "question": "Which Football player is known as ‘The Black Pearl’?",
         "image": "⚽",
         "options": [
           "Pelé",
-          "Bolt",
-          "Roosevelt",
-          "Tendulkar"
+          "Ronaldo",
+          "Neymar Jr",
+          "Bebeto"
         ],
         "answer": "Pelé",
         "rules": ""
@@ -121,7 +121,7 @@
       {
         "type": "mcq",
         "section": "Team A",
-        "question": "Which national cricket team is called by ‘Kangaroos’?",
+        "question": "Which National cricket team is called by ‘Kangaroos’?",
         "image": "🦘",
         "options": [
           "Indian Cricket Team",
@@ -149,7 +149,7 @@
       {
         "type": "mcq",
         "section": "Team C",
-        "question": "Which country won the first Blind Women’s T20 World Cup?",
+        "question": "Which country won the First Blind Women’s T20 World Cup?",
         "image": "🏆",
         "options": [
           "Australia",
@@ -163,7 +163,7 @@
       {
         "type": "mcq",
         "section": "Team D",
-        "question": "What is the official national sport of China?",
+        "question": "What is the official National Sport of China?",
         "image": "🏓",
         "options": [
           "Hockey",
@@ -315,7 +315,7 @@
     "questions": [
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/A",
         "question": "Name this legendary sports personality:",
         "image": "images/LeBron James.jpg",
         "options": [],
@@ -324,7 +324,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/B",
         "question": "Name this legendary sports personality:",
         "image": "images/usain Bolt.jpg",
         "options": [],
@@ -333,7 +333,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/C",
         "question": "Name this legendary sports personality:",
         "image": "images/Muttiah Muralitharan.jpg",
         "options": [],
@@ -342,7 +342,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/D",
         "question": "Name this legendary sports personality:",
         "image": "images/Dhanraj Pillay.jpg",
         "options": [],
@@ -351,7 +351,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/A",
         "question": "Name this legendary sports personality:",
         "image": "images/Geeta And Babita Phogat.jpg",
         "options": [],
@@ -360,7 +360,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/B",
         "question": "Name this legendary sports personality:",
         "image": "images/leander paes and mahesh bhupathi.jpg",
         "options": [],
@@ -369,7 +369,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/C",
         "question": "Name this legendary sports personality:",
         "image": "images/serena williams and venus williams.jpg",
         "options": [],
@@ -378,7 +378,7 @@
       },
       {
         "type": "personality",
-        "section": "Personality",
+        "section": "Personality/D",
         "question": "Name this legendary sports personality:",
         "image": "images/cristiano ronaldo and ronaldinho.webp",
         "options": [],
@@ -387,7 +387,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/A",
         "question": "Identify this sport from the image:",
         "image": "images/Windsurfing.jpg",
         "options": [],
@@ -396,7 +396,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/B",
         "question": "Identify this sport from the image:",
         "image": "images/Netball.jpg",
         "options": [],
@@ -405,7 +405,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/C",
         "question": "Identify this sport from the image:",
         "image": "images/Water Polo.jpg",
         "options": [],
@@ -414,7 +414,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/D",
         "question": "Identify this sport from the image:",
         "image": "images/Gymnastics.jpg",
         "options": [],
@@ -423,7 +423,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/A",
         "question": "Identify the Swimming Style",
         "image": "images/Butterfly.jpeg",
         "options": [],
@@ -432,7 +432,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/B",
         "question": "Identify the Swimming Style",
         "image": "images/Breast Stroke.jpeg",
         "options": [],
@@ -441,7 +441,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/C",
         "question": "Identify the Swimming Style",
         "image": "images/BackStroke.jpeg",
         "options": [],
@@ -450,7 +450,7 @@
       },
       {
         "type": "sport",
-        "section": "Sport",
+        "section": "Sport/D",
         "question": "Identify the Swimming Style",
         "image": "images/Freestyle.jpeg",
         "options": [],
