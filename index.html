@@ -2853,10 +2853,10 @@ function renderPlayQuestion(qIdx, direction) {
       mediaWrap.className = 'media-wrap';
       mediaWrap.id = 'mediaWrap';
       const isPhoto = (q.type === 'personality' || q.type === 'sport' || (q.section && (q.section.startsWith('Personality') || q.section.startsWith('Sport'))));
-      mediaWrap.innerHTML = renderMediaTag(q.image, q.answer, isPhoto) + '<div class="media-zoom-badge">🔍 Click to zoom</div>';
+      mediaWrap.innerHTML = renderMediaTag(q.image, q.question || 'Visual Clue', isPhoto) + '<div class="media-zoom-badge">🔍 Click to zoom</div>';
       mediaWrap.onclick = (e) => {
         if (e.target.tagName !== 'BUTTON') {
-          openImageLightbox(q.image, q.answer ? ('Answer: ' + q.answer) : (q.question || 'Visual Clue'));
+          openImageLightbox(q.image, q.question || '');
         }
       };
       card.appendChild(mediaWrap);
@@ -3807,7 +3807,11 @@ function openImageLightbox(src, caption) {
   if (!overlay || !img) return;
   img.src = src;
   img.alt = caption || 'Quiz Image';
-  if (cap) cap.textContent = caption || '';
+  if (cap) {
+    const text = (caption || '').trim();
+    cap.textContent = text;
+    cap.style.display = text ? 'block' : 'none';
+  }
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
