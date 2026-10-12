@@ -1482,6 +1482,205 @@
       gap: 18px;
       box-shadow: 0 24px 60px rgba(0,0,0,0.3);
     }
+
+    /* ── Clear View Styles for First Two Rounds (Round 1 & Round 2) ── */
+    .app-container.wide-mode {
+      max-width: 940px;
+    }
+
+    /* Round 1 (General Round - MCQ & Clear View) */
+    .round-1-card .question-title {
+      font-size: clamp(1.65rem, 4.5vw, 2.35rem);
+      line-height: 1.38;
+      font-weight: 700;
+      padding: 0 12px;
+      letter-spacing: -0.2px;
+    }
+
+    .round-1-card .options-container {
+      gap: 16px;
+    }
+
+    .round-1-card .option-item {
+      font-size: clamp(1.2rem, 2.6vw, 1.38rem);
+      line-height: 1.35;
+      padding: 16px 22px;
+      border-radius: 18px;
+      border-width: 2.5px;
+      gap: 16px;
+    }
+
+    .round-1-card .option-letter {
+      width: 42px;
+      height: 42px;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .round-1-card .option-text {
+      font-size: clamp(1.2rem, 2.6vw, 1.38rem);
+      font-weight: 600;
+    }
+
+    .round-1-card .answer-revealed-box {
+      padding: 22px 28px;
+      border-radius: 24px;
+      border-width: 2.5px;
+    }
+
+    .round-1-card .answer-badge-tag {
+      font-size: 0.95rem;
+      font-weight: 700;
+      padding: 6px 18px;
+      letter-spacing: 0.8px;
+    }
+
+    .round-1-card .answer-text {
+      font-size: clamp(2rem, 6vw, 2.85rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .round-1-card .media-fallback-icon {
+      font-size: 5.5rem;
+    }
+
+    .round-1-card .chip {
+      font-size: 1.05rem;
+      padding: 7px 18px;
+    }
+
+    .round-1-card .open-prompt-box {
+      font-size: 1.15rem;
+      line-height: 1.4;
+      padding: 12px 20px;
+    }
+
+    /* Round 2 (Rapid Fire Round - 4-Question Sets & Clear Visibility) */
+    .round-2-card .question-title {
+      font-size: clamp(1.55rem, 4.2vw, 2.2rem);
+      line-height: 1.32;
+      font-weight: 700;
+      padding: 0 10px;
+    }
+
+    .round-2-card .open-prompt-box {
+      font-size: 1.18rem;
+      font-weight: 600;
+      padding: 12px 20px;
+      line-height: 1.4;
+    }
+
+    .round-2-card .rapid-fire-grid {
+      gap: 14px;
+    }
+
+    .round-2-card .rapid-item-card {
+      padding: 18px 22px;
+      border-radius: 20px;
+      border-width: 2.5px;
+      gap: 10px;
+    }
+
+    .round-2-card .rapid-item-header {
+      font-size: clamp(1.22rem, 2.6vw, 1.38rem);
+      font-weight: 700;
+      line-height: 1.42;
+      gap: 14px;
+    }
+
+    .round-2-card .rapid-q-num {
+      width: 36px;
+      height: 36px;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .round-2-card .rapid-ans-box {
+      padding: 12px 18px;
+      border-radius: 14px;
+      border-width: 2px;
+      margin-top: 6px;
+    }
+
+    .round-2-card .rapid-ans-label {
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+    }
+
+    .round-2-card .rapid-ans-text {
+      font-size: clamp(1.3rem, 2.8vw, 1.55rem);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .round-2-card .timer-widget {
+      padding: 7px 18px;
+      gap: 12px;
+    }
+
+    .round-2-card .timer-display {
+      font-size: 1.45rem;
+      font-weight: 800;
+      min-width: 58px;
+    }
+
+    .round-2-card .timer-btn {
+      font-size: 0.95rem;
+      padding: 5px 12px;
+      font-weight: 700;
+    }
+
+    .round-2-card .chip {
+      font-size: 1.05rem;
+      padding: 7px 18px;
+    }
+
+    /* Rules Screen for Round 1 & Round 2 */
+    .rules-card.round-1-rules .rule-content,
+    .rules-card.round-2-rules .rule-content {
+      font-size: clamp(1.22rem, 2.7vw, 1.38rem);
+      line-height: 1.48;
+      font-weight: 600;
+    }
+
+    .rules-card.round-1-rules .rule-arrow,
+    .rules-card.round-2-rules .rule-arrow {
+      font-size: 1.5rem;
+    }
+
+    .rules-card.round-1-rules .rules-title,
+    .rules-card.round-2-rules .rules-title {
+      font-size: clamp(1.95rem, 5.2vw, 2.65rem);
+    }
+
+    .rules-card.round-1-rules .chip,
+    .rules-card.round-2-rules .chip {
+      font-size: 1.05rem;
+      padding: 7px 18px;
+    }
+
+    @media (max-width: 600px) {
+      .round-1-card .question-title {
+        font-size: clamp(1.35rem, 5vw, 1.75rem);
+      }
+      .round-1-card .option-item {
+        font-size: 1.1rem;
+        padding: 13px 16px;
+      }
+      .round-1-card .option-letter {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+      .round-2-card .rapid-item-header {
+        font-size: 1.12rem;
+      }
+      .round-2-card .rapid-ans-text {
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2569,6 +2768,11 @@ function switchView(viewName) {
   document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
   stopTimer();
 
+  const appContainer = document.querySelector('.app-container');
+  if (appContainer && viewName !== 'play') {
+    appContainer.classList.remove('wide-mode');
+  }
+
   if (viewName === 'home') {
     resetTealBackground();
     renderHomeScreen();
@@ -2642,6 +2846,16 @@ function startAllRounds() {
 function renderRulesScreen() {
   const round = roundsData[activeRoundIndex];
   if (!round) return;
+
+  const rulesCard = document.querySelector('.rules-card');
+  if (rulesCard) {
+    rulesCard.classList.remove('round-1-rules', 'round-2-rules');
+    if (round.id === 'round-1' || activeRoundIndex === 0) {
+      rulesCard.classList.add('round-1-rules');
+    } else if (round.id === 'round-2' || activeRoundIndex === 1) {
+      rulesCard.classList.add('round-2-rules');
+    }
+  }
 
   document.getElementById('rulesIcon').textContent = round.icon || '🏆';
   document.getElementById('rulesTitle').textContent = `Round ${activeRoundIndex + 1}: ${round.name}`;
@@ -2758,8 +2972,21 @@ function renderPlayQuestion(qIdx, direction) {
   wrapper.innerHTML = '';
 
   const card = document.createElement('div');
-  card.className = direction === 'prev' ? 'card slide-in-left' : 'card';
+  let cardClass = direction === 'prev' ? 'card slide-in-left' : 'card';
+  if (round.id === 'round-1' || activeRoundIndex === 0) {
+    cardClass += ' round-1-card round-large-font';
+  } else if (round.id === 'round-2' || activeRoundIndex === 1) {
+    cardClass += ' round-2-card round-large-font';
+  }
+  card.className = cardClass;
   card.id = 'theCard';
+
+  const appContainer = document.querySelector('.app-container');
+  if (round.id === 'round-1' || round.id === 'round-2' || activeRoundIndex === 0 || activeRoundIndex === 1) {
+    if (appContainer) appContainer.classList.add('wide-mode');
+  } else {
+    if (appContainer) appContainer.classList.remove('wide-mode');
+  }
 
   // Confetti Container
   const cc = document.createElement('div');
